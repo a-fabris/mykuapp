@@ -1,0 +1,10 @@
+Package: thesis-prototype
+Type: Package
+Title: OpenCPU Thesis App
+Version: 0.0
+Date: 2015-03-31
+Author: Andrea Fabris
+Maintainer: Andrea <afabris86@gmail.com>
+Description: This is a test package for my Master's Thesis
+License: Apache2
+LazyData: true
