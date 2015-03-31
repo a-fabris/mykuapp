@@ -1,1 +1,31 @@
-<p>This is a test</p>
+<!-- index.html -->
+<!doctype html>
+<html>
+<head>   
+   <!-- META -->
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>MyKuApp</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    
+    <script src="ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+	<script src="cdn.opencpu.org/opencpu-0.4.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="MainCtrl">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+          <div ng-model='example' ui-ace='aceOptions'>{{ example }}</div>
+      </div>
+      <div class="col-sm-8">
+          <iframe id="output" seamless></iframe>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
