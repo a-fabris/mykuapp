@@ -14,12 +14,13 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
     <script src="http://cdn.opencpu.org/opencpu-0.4.js"></script>
+    <script src="js/controllers.js"></script>
 </head>
 
-<body ng-app="">
+<body ng-app="myKuApp" ng-controller="MainCtrl">
 
 <div class="page-header">
-  <h1>Master's Thesis<small>Andrea Fabris Angular expression: {{ 1 + 2 }}</small></h1>
+  <h1>Master's Thesis<small> Andrea Fabris</small></h1>
 </div>
 
 <div class="btn-group" role="group" aria-label="...">
@@ -34,7 +35,7 @@
         <div ng-model='example' ui-ace='aceOptions'></div>
     </div>
     <div class="col-sm-8">
-        <iframe id="output" seamless>Angular expression: {{ 1 + 2 }}</iframe>
+        <iframe id="output" seamless>{{example}}</iframe>
     </div>
   </div>
 </div>
