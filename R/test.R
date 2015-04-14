@@ -1,1 +1,1 @@
-z <- rnorm(2)
+z <- rnorm(100)

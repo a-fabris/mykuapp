@@ -16,16 +16,28 @@
 	<script src="cdn.opencpu.org/opencpu-0.4.js"></script>
 </head>
 
+<div class="page-header">
+  <h1>Master's Thesis<small>Andrea Fabris</small></h1>
+</div>
+
 <body ng-app="myApp" ng-controller="MainCtrl">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
-          <div ng-model='example' ui-ace='aceOptions'>{{ example app }}</div>
-      </div>
-      <div class="col-sm-8">
-          <iframe id="output" seamless></iframe>
-      </div>
+
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default">rnorm</button>
+  <button type="button" class="btn btn-default">pnorm</button>
+  <button type="button" class="btn btn-default">dnorm</button>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+        <div ng-model='example' ui-ace='aceOptions'></div>
+    </div>
+    <div class="col-sm-8">
+        <iframe id="output" seamless></iframe>
     </div>
   </div>
+</div>
+
 </body>
 </html>
