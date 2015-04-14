@@ -1,6 +1,6 @@
 'use strict';
 
-var myKuApp = angular.module('myKuApp',['ui.ace'])
+var myKuApp = angular.module('myKuApp',[])
 
 myKuApp.controller('MainCtrl', function($scope){
 	$scope.aceOptions = {

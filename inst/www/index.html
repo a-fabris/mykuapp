@@ -17,7 +17,7 @@
     <script src="js/controllers.js"></script>
 </head>
 
-<body ng-app="myKuApp">
+<body ng-app="myKuApp" ng-controller="MainCtrl">
 
 <div class="page-header">
   <h1>Master's Thesis<small> Andrea Fabris {{1+2}}</small></h1>
@@ -29,7 +29,7 @@
   <button type="button" class="btn btn-default">dnorm</button>
 </div>
 
-<div class="container" ng-controller="MainCtrl">
+<div class="container">
   <div class="row">
     <div class="col-sm-4">
         <div ng-model='example' ui-ace='aceOptions'></div>
