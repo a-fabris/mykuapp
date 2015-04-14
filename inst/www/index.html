@@ -22,12 +22,13 @@
 
 <body ng-app="myApp" ng-controller="MainCtrl">
 
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default">rnorm</button>
+  <button type="button" class="btn btn-default">pnorm</button>
+  <button type="button" class="btn btn-default">dnorm</button>
+</div>
+
 <div class="container">
-  <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default">rnorm</button>
-    <button type="button" class="btn btn-default">pnorm</button>
-    <button type="button" class="btn btn-default">dnorm</button>
-  </div>
   <div class="row">
     <div class="col-sm-4">
         <div ng-model='example' ui-ace='aceOptions'></div>
