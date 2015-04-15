@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var myKuApp = angular.module('myKuApp',[]);
+var myKuApp = angular.module('myKuApp',[ui.ace]);
 
 myKuApp.controller('MainCtrl', function ($scope) {
 	

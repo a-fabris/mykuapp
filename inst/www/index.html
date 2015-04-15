@@ -30,6 +30,8 @@
   <button type="button" class="btn btn-default" ng-repeat="function in functions">{{function.name}}</button>
 </div>
 
+<div class="editor" ui-ace="{ mode: 'javascript', theme: 'monokai' }" ng-model="code"></div>
+
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
