@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script><!-- load angular -->
-    <script src="https://github.com/ajaxorg/ace-builds/blob/master/src-min/ace.js"></script><!-- load ace editor -->
-    <script src="https://github.com/angular-ui/ui-ace/blob/master/src/ui-ace.js"></script><!-- load ace ui -->
+    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <script src="http://cdn.opencpu.org/opencpu-0.4.js"></script>
     <script src="js/controllers.js"></script>
 </head>
@@ -30,8 +30,6 @@
   <button type="button" class="btn btn-default" ng-repeat="function in functions">{{function.name}}</button>
 </div>
 
-<div class="editor" ui-ace="{ mode: 'javascript', theme: 'monokai' }" ng-model="code"></div>
-<!--
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
@@ -42,10 +40,8 @@
     </div>
   </div>
 </div>
--->
-<!--
+
 <button type="button" class="btn btn-default">Submit code</button>
--->
 
 </body>
 </html>
