@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var myKuApp = angular.module('myKuApp',[ui.ace]);
+var myKuApp = angular.module('myKuApp',['ui.ace']);
 
 myKuApp.controller('MainCtrl', function ($scope) {
 	
@@ -18,5 +18,5 @@ myKuApp.controller('MainCtrl', function ($scope) {
 		{'name' : 'qnorm', 'description' : 'this is qnorm'}
 	];
 
-	$scope.example = 'code goes here'
+	$scope.example = 'require(rCharts)\nrPlot(mpg ~ wt, data = mtcars,type = "point")'
 });
