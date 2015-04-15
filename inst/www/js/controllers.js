@@ -19,4 +19,6 @@ myKuApp.controller('MainCtrl', function ($scope) {
 	];
 
 	$scope.example = 'require(rCharts)\nrPlot(mpg ~ wt, data = mtcars,type = "point")'
+
+	$scope.code = "alert('hello world');";
 });
