@@ -25,19 +25,16 @@
   <h1>Master's Thesis<small> Andrea Fabris {{1+2}}</small></h1>
 </div>
 
-<!--
+
 <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default">rnorm</button>
-  <button type="button" class="btn btn-default">pnorm</button>
-  <button type="button" class="btn btn-default">dnorm</button>
+  <button type="button" class="btn btn-default" ng-repeat="function in functions">{{function.name}}</button>
 </div>
--->
 
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
         <div ng-model='example' ui-ace='aceOptions'></div>
-    </div>
+    </div>  
     <div class="col-sm-8">
         <iframe id="output" seamless>{{example}} prova</iframe>
     </div>
