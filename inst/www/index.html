@@ -20,7 +20,10 @@
 
 <body ng-app="app" ng-controller="controller">
 
-<div class="editor" ui-ace="{ mode: 'r', theme: 'monokai' }" ng-model="code">{{code}}</div>
+    <!--
+    <div class="editor" ui-ace="{ mode: 'r', theme: 'monokai' }" ng-model="code">{{code}}</div>
+    -->
+    <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
 
 </body>
 
