@@ -13,7 +13,7 @@ app.controller("controller", ["$scope", function($scope) {
 
 var app2 = angular.module("app2",[]);
 
-app2.controller("controller2", function($scope){
+app2.controller("controller2", ["$scope", function($scope){
 	$scope.example = "Example works!";
-});
+}]);
 
