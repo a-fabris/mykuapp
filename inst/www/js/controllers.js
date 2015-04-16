@@ -9,7 +9,7 @@ app.controller("controller", ["$scope", function($scope) {
 			mode : 'r',
 			useWrapMode : 'true'
 		}
-		$scope.example = "Example works!";
+		$scope.example = "Example Works!";
 }]);
 
 
