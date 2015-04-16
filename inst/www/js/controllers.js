@@ -12,4 +12,9 @@ app.controller("controller", ["$scope", function($scope) {
 		$scope.example = "Example Works!";
 }]);
 
+app.controller("controller2",["$scope", function($scope){
+
+	$scope.test = "Controller 2 works!";
+}]);
+
 
