@@ -18,20 +18,20 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<body>
+<body ng-app="app" ng-controller="controller">
 
 <div class="page-header">
   <h1>Direct Manipulation Prototype <small>Andrea Fabris Master's Thesis</small></h1>
 </div>
 
-<div ng-app="app" ng-controller="controller">
+<div>
     <!--
     <div class="editor" ui-ace="{ mode: 'r', theme: 'monokai' }" ng-model="code">{{code}}</div>
     -->
     <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
 </div>
 
-<div ng-app="app2" ng-controller="controller2">
+<div>
 {{example}}{{1+2}}
 </div>
 
