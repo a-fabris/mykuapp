@@ -14,6 +14,12 @@ app.controller("controller", ["$scope", function($scope) {
 
 app.controller("controller2",["$scope", function($scope){
 
+	$scope.functions = [
+		{ 'name' : 'rnorm' , 'description' : 'description of rnorm'},
+		{ 'name' : 'qnorm' , 'description' : 'description of qnorm'},
+		{ 'name' : 'pnorm' , 'description' : 'description of pnorm'}
+	];
+
 	$scope.test = "Controller 2 works!";
 }]);
 
