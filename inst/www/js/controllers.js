@@ -10,6 +10,23 @@ app.controller("controller", ["$scope", function($scope) {
 			useWrapMode : 'true'
 		}
 		$scope.example = "Example Works!";
+
+        $scope.makecode = function(funct){
+            switch(funct){
+                case "rnorm":
+                    $scope.code = "rnorm was selected";
+                    break;
+                case "qnorm":
+                    $scope.code = "qnorm was selected";
+                    break;
+                case "pnorm":
+                    $scope.code = "pnorm was selected";
+                    break;
+                default:
+                    $scope.code = "function unknown";
+            } 
+        }
+
 }]);
 
 app.controller("controller2",["$scope", function($scope){
@@ -22,6 +39,7 @@ app.controller("controller2",["$scope", function($scope){
 
 	$scope.test = "Controller 2 works!"
     
+    ;
 }]);
 
 
