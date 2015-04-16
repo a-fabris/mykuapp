@@ -20,7 +20,8 @@ app.controller("controller2",["$scope", function($scope){
 		{ 'name' : 'pnorm' , 'description' : 'description of pnorm'}
 	];
 
-	$scope.test = "Controller 2 works!";
+	$scope.test = "Controller 2 works!"
+    
 }]);
 
 

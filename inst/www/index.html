@@ -25,7 +25,7 @@
 </div>
 
 <ol class="breadcrumb" ng-controller="controller2">
-    <li ng-repeat="function in functions"><a href="#">{{function.name}}</a></li>
+    <li ng-repeat="function in functions" ng-mouseover="{{function.description}}"><a href="#">{{function.name}}</a></li>
 </ol>
 
 <div ng-controller="controller2">
