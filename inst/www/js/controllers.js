@@ -11,7 +11,8 @@ app.controller("controller", ["$scope", function($scope) {
 		}
 		$scope.example = "Example Works!";
 
-        $scope.makecode = function(funct){
+        $scope.makecode = function(){
+           /* 
             switch(funct){
                 case "rnorm":
                     $scope.code = "rnorm was selected";
@@ -24,7 +25,9 @@ app.controller("controller", ["$scope", function($scope) {
                     break;
                 default:
                     $scope.code = "function unknown";
-            } 
+            }
+            */
+            $scope.code="clicked!";
         }
 
 }]);
