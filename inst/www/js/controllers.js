@@ -27,7 +27,7 @@ app.controller("controller", ["$scope", function($scope) {
                     $scope.code = "function unknown";
             }
             */
-            $scope.code=$event.currentTarget;
+            $scope.code=$event.currentTarget.id.toString();
             alert($event.currentTarget);
         }
 
