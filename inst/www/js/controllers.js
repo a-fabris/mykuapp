@@ -27,6 +27,11 @@ app.controller("controller", ["$scope", function($scope) {
         }
 
         $scope.runcode = function(code){
+            ocpu.call("rnorm", {n:100}, function(session){
+                session.getObject(function(data){
+                    alert("First few values:" + data.slice(0,3)); 
+                }); 
+            });
         }
 
 }]);
