@@ -28,7 +28,7 @@ app.controller("controller", ["$scope", function($scope) {
             }
             */
             $scope.code="clicked!";
-            alert($event.target);
+            alert($event.currentTarget);
         }
 
 }]);
