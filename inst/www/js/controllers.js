@@ -3,7 +3,6 @@
 var app = angular.module("app",['ui.ace']);
 
 app.controller("controller", ["$scope", function($scope) {
-		$scope.code = "alert('hello world');";
 		$scope.aceOptions = {
 			theme : 'solarized_dark',
 			mode : 'r',
@@ -25,6 +24,10 @@ app.controller("controller", ["$scope", function($scope) {
                 default:
                     $scope.code = "function unknown";
             }
+        }
+
+        $scope.runcode = function(code){
+            alert("Running R");     
         }
 
 }]);

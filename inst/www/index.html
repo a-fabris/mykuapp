@@ -30,12 +30,10 @@
 
 <input type="text" class="form-control" placeholder="Number of observations">
 <div>
-    <!--
-    <div class="editor" ui-ace="{ mode: 'r', theme: 'monokai' }" ng-model="code">{{code}}</div>
-    -->
     <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
 </div>
-<button type="button" class="btn btn-default">Run code</button>
+
+<button type="button" class="btn btn-default" ng-click="runcode(code)">Run code</button>
 
 </body>
 
