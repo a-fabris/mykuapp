@@ -27,7 +27,7 @@ app.controller("controller", ["$scope", function($scope) {
                     $scope.code = "function unknown";
             }
             */
-            $scope.code="clicked!";
+            $scope.code=$event.currentTarget;
             alert($event.currentTarget);
         }
 
