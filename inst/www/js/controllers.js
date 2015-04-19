@@ -27,7 +27,6 @@ app.controller("controller", ["$scope", function($scope) {
         }
 
         $scope.runcode = function(code){
-            alert("Running R");     
         }
 
 }]);
