@@ -11,7 +11,7 @@ app.controller("controller", ["$scope", function($scope) {
 		}
 		$scope.example = "Example Works!";
 
-        $scope.makecode = function(){
+        $scope.makecode = function($event){
            /* 
             switch(funct){
                 case "rnorm":
@@ -28,6 +28,7 @@ app.controller("controller", ["$scope", function($scope) {
             }
             */
             $scope.code="clicked!";
+            alert($event.target);
         }
 
 }]);
