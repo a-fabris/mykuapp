@@ -2,7 +2,7 @@
 
 var app = angular.module("app",['ui.ace']);
 
-app.controller("controller", ["$scope", function($scope) {
+app.controller("controller", ["$scope",  function($scope) {
 		$scope.aceOptions = {
 			theme : 'solarized_dark',
 			mode : 'r',
