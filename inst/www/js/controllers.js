@@ -34,7 +34,7 @@ app.controller("controller", ["$scope", function($scope) {
                 }); 
             });
             
-            //alert("runcode clicked");
+            /*alert("runcode clicked");*/
         }
 
 }]);
