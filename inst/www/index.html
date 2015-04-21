@@ -24,26 +24,29 @@
 
 <body ng-app="app" ng-controller="controller">
 
-<div class="row">
-  <small>Direct manipulation interfaces</small>
-</div>
-
-<ol class="breadcrumb" ng-controller="controller2">
-    <li ng-repeat="function in functions" ng-click="makecode(function.name)" id="{{function.name}}"><a href="#">{{function.name}}</a></li>
-</ol>
-
-<input type="text" class="form-control" placeholder="Number of observations">
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
+    <div class="container-fluid">
+        <div class="row">
+            <small>Direct manipulation interfaces</small>
+        </div>
     </div>
-    <div class="col-md-6" id="output">
-      Output goes here
-  </div>
-</div> <!-- .editor and output -->
 
-<button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
+    <ol class="breadcrumb" ng-controller="controller2">
+        <li ng-repeat="function in functions" ng-click="makecode(function.name)" id="{{function.name}}"><a href="#">{{function.name}}</a></li>
+    </ol>
+    
+    <input type="text" class="form-control" placeholder="Number of observations">
+    
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
+        </div>
+        <div class="col-md-6" id="output">
+          Output goes here
+      </div>
+    </div> <!-- .editor and output -->
+    
+    <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
 
 </body>
 
