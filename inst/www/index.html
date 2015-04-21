@@ -22,19 +22,20 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<body ng-app="app" ng-controller="controller">
+<body ng-app="app" ng-controller="mainController">
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8"> <!-- header title goes here -->
                 <h2>
-                <code>Direct manipulation interfaces as a transition to textual programming</code>
+                <code>{{headerTitle}}</code>
                 </h2>
             </div> <!-- .header title -->
             <div class="col-md-4">
                 <ol class="list-inline navbar-right">
-                    <li><a href="#"><code>HELP</code></a></li>
-                    <li><a href="#"><code>ABOUT</code></a></li>
+                    <li ng-repeat="info in infoLinks" class="text-uppercase">
+                        <a href="#"><code>{{info.name}}</code></a>
+                    </li>
                 </ol>
             </div>
         </div>
