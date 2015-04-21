@@ -42,12 +42,11 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
+            <nav class="navbar navbar-default" ng-controller="controller2"> <!-- main menu navigation -->
                 <ul class="nav navbar-nav">
                     <li><a href="#">FILE</a></li>
                     <li><a href="#">TASKS</a></li>
                 </ul>
-                <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
             </nav>
         </div>
     </div>
@@ -65,6 +64,9 @@
             <div class="cold-md-8 bordered"> <!-- editor -->
                 <div class="col-md-4 bordered">
                     <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
+                    <row>
+                        <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
+                    </row>
                 </div>
                 <div class="col-md-4 bordered" id="output">
                     Output goes here
