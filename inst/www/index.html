@@ -42,33 +42,25 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
-                <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">FILE</a></li>
-                        <li><a href="#">TASKS</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-4">
-                <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">HELP</a></li>
-                        <li><a href="#">ABOUT</a></li>
-                    </ul>
-                </nav>
-
-            </div>    
+            <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
+                <ul class="nav navbar-nav">
+                    <li><a href="#">FILE</a></li>
+                    <li><a href="#">TASKS</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 
+    
+
+    
+    <!--
     <ol class="breadcrumb" ng-controller="controller2">
         <li ng-repeat="function in functions" ng-click="makecode(function.name)" id="{{function.name}}"><a href="#">{{function.name}}</a></li>
     </ol>
+    -->
     
-    <input type="text" class="form-control" placeholder="Number of observations">
-    
-    
+    <!--
     <div class="row">
         <div class="col-md-6">
             <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
@@ -76,9 +68,10 @@
         <div class="col-md-6" id="output">
           Output goes here
       </div>
-    </div> <!-- .editor and output -->
+    </div>
     
     <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
+    -->
 
 </body>
 
