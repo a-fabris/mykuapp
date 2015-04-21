@@ -19,12 +19,12 @@ app.controller("mainController", ["$scope",  function($scope) {
             {"name" : "tasks"}
         ];
 
-        $scope.menuEntry{[
+        $scope.menuEntry = [
             {"name" : "rnorm"},
             {"name" : "mean"},
             {"name" : "standard deviation"}
 
-        ]};
+        ];
 
 		$scope.aceOptions = {
 			theme : 'solarized_dark',
