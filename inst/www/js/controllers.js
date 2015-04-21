@@ -9,10 +9,22 @@ app.controller("mainController", ["$scope",  function($scope) {
 
         $scope.headerTitle = "Direct manipulation interfaces as a transition to textual programming";
 
-        $scope.infoLinks = [
-            {"name" : "help"},
-            {"name" : "about"}
+        $scope.infoEntry = [
+            {"name" : "about"},
+            {"name" : "help"}
         ];
+
+        $scope.navigationEntry = [
+            {"name" : "file"},
+            {"name" : "tasks"}
+        ];
+
+        $scope.menuEntry{
+            {"name" : "rnorm"},
+            {"name" : "mean"},
+            {"name" : "standard deviation"}
+
+        }
 
 		$scope.aceOptions = {
 			theme : 'solarized_dark',
@@ -54,6 +66,7 @@ app.controller("mainController", ["$scope",  function($scope) {
 
 }]);
 
+/*
 app.controller("controller2",["$scope", function($scope){
 
 	$scope.functions = [
@@ -66,5 +79,4 @@ app.controller("controller2",["$scope", function($scope){
     
     ;
 }]);
-
-
+*/
