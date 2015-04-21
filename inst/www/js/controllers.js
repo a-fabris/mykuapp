@@ -20,9 +20,9 @@ app.controller("mainController", ["$scope",  function($scope) {
         ];
 
         $scope.menuEntry = [
-            {"name" : "rnorm"},
-            {"name" : "mean"},
-            {"name" : "standard deviation"}
+            {"name" : "rnorm", "id" : "rnorm"},
+            {"name" : "mean", "id" : "mean"},
+            {"name" : "standard deviation" , "id" : "sd"}
 
         ];
 
