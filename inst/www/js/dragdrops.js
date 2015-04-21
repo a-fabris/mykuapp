@@ -4,7 +4,7 @@ function init() {
   $('#rnorm').draggable({
   	cursor: 		"move",
   	zIndex: 		100,
-  	containment: 	"#workspace",
+  	//containment: 	"#workspace",
   	snap: 			"#rnorm"
   });
 }
