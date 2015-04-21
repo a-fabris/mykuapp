@@ -5,7 +5,7 @@ ocpu.seturl("https://public.opencpu.org/ocpu/library/stats/R");
 var app = angular.module("app",['ui.ace']);
 
 
-app.controller("controller", ["$scope",  function($scope) {
+app.controller("controller", ["$scope",  function($scope) { 
 
 		$scope.aceOptions = {
 			theme : 'solarized_dark',
@@ -31,14 +31,18 @@ app.controller("controller", ["$scope",  function($scope) {
         }
 
         $scope.runcode = function(){
-            
             ocpu.call("rnorm", {n:100}, function(session){
                 session.getObject(function(data){
-                    alert("First few values:" + data.slice(0,3)); 
-                }); 
+                    //alert("First few values:" + data.slice(0,3));
+                    $("#output").text(data.slice(0,3));
+                });
+
+                //retrieve session console (stdout) async
+                //    session.getConsole(function(outtxt){
+                //        $("#output").text(outtxt);
+                //});
             });
             
-            /*alert("runcode clicked");*/
         }
 
 }]);
