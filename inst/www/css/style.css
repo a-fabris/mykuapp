@@ -2,3 +2,7 @@
 	height: 300px;
     width:  500px;
 }
+
+.nav .navbar-nav{
+	height: 28px;
+}
