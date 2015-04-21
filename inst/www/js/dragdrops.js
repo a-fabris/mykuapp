@@ -1,5 +1,3 @@
-$( init );
- 
-function init() {
-  $('#rnorm').draggable();
-}
+$('#rnorm').draggable();
+
+
