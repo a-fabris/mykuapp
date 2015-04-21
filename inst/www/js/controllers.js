@@ -7,7 +7,7 @@ var app = angular.module("app",['ui.ace']);
 
 app.controller("mainController", ["$scope",  function($scope) {
 
-        $scope.headerTitile = "Direct manipulation interfaces as a transition to textual programming";
+        $scope.headerTitle = "Direct manipulation interfaces as a transition to textual programming";
 
         $scope.infoLinks = [
             {"name" : "help"},
