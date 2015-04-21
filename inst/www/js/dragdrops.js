@@ -5,6 +5,6 @@ function init() {
   	cursor: 		"move",
   	zIndex: 		100,
   	//containment: 	"#workspace",
-  	snap: 			true
+  	helper: 		"clone"
   });
 }
