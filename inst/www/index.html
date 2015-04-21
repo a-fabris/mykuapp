@@ -25,25 +25,34 @@
 <body ng-app="app" ng-controller="controller">
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row"> <!-- header -->
             <div class="col-md-8"> <!-- header title goes here -->
                 <h3><code>Direct manipulation interfaces as a transition to textual programming</code></h3>
-            </div>
+            </div> <!-- .header title -->
             <div class="col-md-4"> <!-- help, about-->
                 <ul class="list-inline navbar-right">
                     <li><a href="#"><code>HELP</code></a></li>
                     <li><a href="#"><code>ABOUT</code></a></li>
                 </ul>
+            </div> <!-- .help -->
+            <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
+                <ul class="nav navbar-nav">
+                    <li><a href="#">FILE</a></li>
+                    <li><a href="#">TASKS</a></li>
+                </ul>
+            </nav>
+        </div> <!-- .header -->
+        <div class="row"> <!-- central block -->
+            <div class="col-md-4"> 
+                
             </div>
-        </div> 
+            <div class="col-md-8">
+                
+            </div>
+        </div>
     </div>
 
-    <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
-        <ul class="nav navbar-nav">
-            <li><a href="#">FILE</a></li>
-            <li><a href="#">TASKS</a></li>
-        </ul>
-    </nav>
+
 
     <ol class="breadcrumb" ng-controller="controller2">
         <li ng-repeat="function in functions" ng-click="makecode(function.name)" id="{{function.name}}"><a href="#">{{function.name}}</a></li>
