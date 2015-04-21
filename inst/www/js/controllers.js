@@ -27,7 +27,7 @@ app.controller("mainController", ["$scope",  function($scope) {
         ];
 
 		$scope.aceOptions = {
-			theme : 'solarized_dark',
+			theme : 'monokai',
 			mode : 'r',
 			useWrapMode : 'true'
 		};
