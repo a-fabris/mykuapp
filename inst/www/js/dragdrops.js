@@ -12,5 +12,5 @@ function init() {
 
 function rnormstop(event, ui){
 	//$(editor).text("rnorm triggered!");
-	editor.insert("Something cool");
+	document.getElementById('editor').insert("something cool");
 }
