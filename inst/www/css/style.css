@@ -10,3 +10,9 @@
 .bordered{
 	border: 1px solid black;
 }
+
+#workspace{
+	height: 300px;
+	width: 300px;
+	background: #2B2B2B;
+}
