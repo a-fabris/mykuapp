@@ -61,17 +61,15 @@
                     </div>
                 </div>
             </div>
-            <div class="cold-md-8 bordered"> <!-- editor -->
-                <div class="col-md-4 bordered">
-                    <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
-                    <row>
-                        <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
-                    </row>
-                </div>
-                <div class="col-md-8 bordered" id="output">
-                    Output goes here
-              </div>
+            <div class="cold-md-8 bordered"> <!-- workspace -->
+                <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
             </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row bordered">
+            <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>   
         </div>
     </div>
 
