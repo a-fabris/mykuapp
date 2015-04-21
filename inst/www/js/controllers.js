@@ -7,8 +7,6 @@ var app = angular.module("app",['ui.ace']);
 
 app.controller("controller", ["$scope",  function($scope) {
 
-        $scope.code = "This is your code editor";
-
 		$scope.aceOptions = {
 			theme : 'solarized_dark',
 			mode : 'r',
