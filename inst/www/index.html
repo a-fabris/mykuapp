@@ -40,12 +40,16 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
-        <ul class="nav navbar-nav">
-            <li><a href="#">FILE</a></li>
-            <li><a href="#">TASKS</a></li>
-        </ul>
-    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse" ng-controller="controller2"> <!-- main menu navigation -->
+                <ul class="nav navbar-nav">
+                    <li><a href="#">FILE</a></li>
+                    <li><a href="#">TASKS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
     <ol class="breadcrumb" ng-controller="controller2">
         <li ng-repeat="function in functions" ng-click="makecode(function.name)" id="{{function.name}}"><a href="#">{{function.name}}</a></li>
