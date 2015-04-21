@@ -11,5 +11,5 @@ function init() {
 }
 
 function rnormstop(event, ui){
-	$(#editor).text("rnorm triggered!");
+	$(editor).text("rnorm triggered!");
 }
