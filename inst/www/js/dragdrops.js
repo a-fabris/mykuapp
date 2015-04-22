@@ -3,14 +3,14 @@ $( init );
 function init() {
 
 	$('#workspace').droppable({
-		
+
 	});
 
   	$('#rnorm').draggable({
   		cursor: 		"move",
   		zIndex: 		100,
-  		//containment: 	"#workspace",
-  		helper: 		"clone",
+  		containment: 	"#workspace",
+  		//helper: 		"clone",
   		stop: 			rnormstop
   	});
 
