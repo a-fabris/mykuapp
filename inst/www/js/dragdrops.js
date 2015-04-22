@@ -11,6 +11,10 @@ function init() {
 }
 
 function rnormstop(event, ui){
-	//$(editor).text("rnorm triggered!");
-	document.getElementById('editor').insert("something cool");
+	// access editor
+	var editor = ace.edit("aceEditor");
+	// retrieve code
+	var code = editor.getSession().getValue();
+	// set code
+	editor.getSession().setValue("rnorm(100) \nsource of newline");
 }
