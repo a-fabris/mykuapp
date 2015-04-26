@@ -82,7 +82,7 @@ app.controller("mainController", ["$scope",  function($scope) {
             var req = ocpu.call("read.csv", {
                 "file" : myfile,
                 "header" : false,
-                "sep" = " "
+                "sep" : " "
             }, function(session){
                 session.getConsole(function(outtxt){
                 $("#workspace").text(outtxt); 
