@@ -79,8 +79,8 @@ app.controller("mainController", ["$scope",  function($scope) {
                 "x" : mysnippet
             }, function(session){
                 session.getConsole(function(outtxt){
-                    alert(typeof outtxt);
-                    //$("#workspace").text(outtxt); 
+                    //alert(typeof outtxt);
+                    $("#workspace").text(outtxt); 
                 });
             });
                 
