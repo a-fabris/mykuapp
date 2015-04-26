@@ -71,10 +71,6 @@ app.controller("mainController", ["$scope",  function($scope) {
             //arguments
             var mysnippet = new ocpu.Snippet(code);
 
-            //alert("Snippet: " + mysnippet);
-
-            
-
             //disable button
             $("runbutton").attr("disabled", "disabled");
         
@@ -83,7 +79,8 @@ app.controller("mainController", ["$scope",  function($scope) {
                 "x" : mysnippet
             }, function(session){
                 session.getConsole(function(outtxt){
-                    $("#workspace").text(outtxt); 
+                    alert(typeof outtxt);
+                    //$("#workspace").text(outtxt); 
                 });
             });
                 
