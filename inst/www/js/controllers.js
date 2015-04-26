@@ -63,9 +63,17 @@ app.controller("mainController", ["$scope",  function($scope) {
 
             //because identity is in base
             ocpu.seturl("https://public.opencpu.org/ocpu/library/base/R");
-            
+
+            // access editor
+            var editor = ace.edit("aceEditor");
+            var code = editor.getSession().getValue();
+
             //arguments
-            var mysnippet = new ocpu.Snippet($("#aceEditor").val());
+            var mysnippet = new ocpu.Snippet(code);
+
+            alert("Snippet: " + mysnippet);
+
+            /*
 
             //disable button
             $("runbutton").attr("disabled", "disabled");
@@ -83,6 +91,7 @@ app.controller("mainController", ["$scope",  function($scope) {
             req.fail(function(){
                 alert("Server error: " + req.responseText);
             });
+            */
         }
 
         $scope.readcsv = function(){
