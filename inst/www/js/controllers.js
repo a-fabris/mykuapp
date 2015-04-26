@@ -1,7 +1,5 @@
 'use strict';
 
-//ocpu.seturl("https://public.opencpu.org/ocpu/library/stats/R");
-
 var app = angular.module("app",['ui.ace']);
 
 app.controller("mainController", ["$scope",  function($scope) {
@@ -49,19 +47,41 @@ app.controller("mainController", ["$scope",  function($scope) {
             }
         }
 
-        $scope.runcode = function(){
+        $scope.rnorm = function(){
+
+            ocpu.seturl("https://public.opencpu.org/ocpu/library/stats/R");
+
             ocpu.call("rnorm", {n:100}, function(session){
                 session.getObject(function(data){
                     //alert("First few values:" + data.slice(0,3));
                     $("#output").text(data.slice(0,3));
                 });
-
-                //retrieve session console (stdout) async
-                //    session.getConsole(function(outtxt){
-                //        $("#output").text(outtxt);
-                //});
             });
-            
+        }
+
+        $scope.runcode = function(){
+
+            //because identity is in base
+            ocpu.seturl("//public.opencpu.org/ocpu/library/base/R")
+            //arguments
+            var mysnippet = new ocpu.Snippet($("#aceEditor").val());
+
+            //disable button
+            $("runbutton").attr("disabled", "disabled");
+        
+            //perform the request
+            var req = ocpu.call("identity", {
+                "x" : mysnippet
+            }, function(session){
+                session.getConsole(function(outtxt){
+                    $("#workspace").text(outtxt); 
+                });
+            });
+                
+            //if R returns an error, alert the error message
+            req.fail(function(){
+                alert("Server error: " + req.responseText);
+            });
         }
 
         $scope.readcsv = function(){
