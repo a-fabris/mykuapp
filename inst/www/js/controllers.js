@@ -71,9 +71,9 @@ app.controller("mainController", ["$scope",  function($scope) {
             //arguments
             var mysnippet = new ocpu.Snippet(code);
 
-            alert("Snippet: " + mysnippet);
+            //alert("Snippet: " + mysnippet);
 
-            /*
+            
 
             //disable button
             $("runbutton").attr("disabled", "disabled");
@@ -91,7 +91,7 @@ app.controller("mainController", ["$scope",  function($scope) {
             req.fail(function(){
                 alert("Server error: " + req.responseText);
             });
-            */
+            
         }
 
         $scope.readcsv = function(){
