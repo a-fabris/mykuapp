@@ -42,7 +42,7 @@ function init() {
 				code = editor.getSession().getValue();
 	
 				// set code
-				editor.insert("rnorm(" + observations.toString() + ")\n");
+				editor.insert("rnorm(" + observations.toString() + ")");
 	
 				//editor.getSession().setValue(code + "rnorm(" + observations.toString() + ")");
 			}).modal('show');	
