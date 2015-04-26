@@ -15,4 +15,11 @@
 	height: 400px;
 	background: #F6F6F6;
 	color: #2B2B2B;
+	z-index: -1;
+}
+
+.ui-draggable-dragging { z-index: 10000 }
+
+.modal, .fade {
+	zIndex: 10001;
 }

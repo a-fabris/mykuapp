@@ -1,9 +1,8 @@
 'use strict';
 
-ocpu.seturl("https://public.opencpu.org/ocpu/library/stats/R");
+//ocpu.seturl("https://public.opencpu.org/ocpu/library/stats/R");
 
 var app = angular.module("app",['ui.ace']);
-
 
 app.controller("mainController", ["$scope",  function($scope) {
 
@@ -27,7 +26,7 @@ app.controller("mainController", ["$scope",  function($scope) {
         ];
 
 		$scope.aceOptions = {
-			theme : 'chrome',
+			theme : 'solarized_dark',
 			mode : 'r',
 			useWrapMode : 'true'
 		};
@@ -63,6 +62,32 @@ app.controller("mainController", ["$scope",  function($scope) {
                 //});
             });
             
+        }
+
+        $scope.readcsv = function(){
+
+            //because read.csv is in utils
+            ocpu.seturl("https://public.opencpu.org/ocpu/library/utils/R");
+            var myfile = $("#csvfile")[0].files[0];
+
+            if(!myfile){
+                alert("No file selected.");
+            return;
+            }
+
+            //disable the button during upload
+            $("#readfile").attr("disabled", "disabled");
+
+            //perform the request
+            var req = ocpu.call("read.csv", {
+                "file" : myfile,
+                "header" : false,
+                "sep" = " "
+            }, function(session){
+                session.getConsole(function(outtxt){
+                $("#workspace").text(outtxt); 
+                });
+            });
         }
 
 }]);

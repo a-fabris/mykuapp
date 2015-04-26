@@ -10,20 +10,27 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- bootstrap -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"> <!-- jquery ui -->
+    <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">--> <!-- jquery ui -->
 
-    <script type="text/javascript" src="bower_components/angular/angular.js"></script> <!-- load angular -->
-    <script type="text/javascript" src="bower_components/ace-builds/src/ace.js"></script> <!-- load ace edior -->
-    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script> <!-- load ui-ace -->
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
-    <!-- OpenCPU client library -->
+    <!-- load ace edior -->
+    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <!-- load ui-ace -->
+    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
+    
+
+    <!-- Jquery, JqueryUI, Bootstrap, OpenCPU frameworks-->
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="http://cdn.opencpu.org/opencpu-0.4.js"></script>
 
     <!-- Custom scripts and style -->
-    <script type="text/javascript" src="js/controllers.js"></script> <!-- load angular controllers -->
     <script src="js/dragdrops.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script> <!-- load angular controllers -->
+    
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
@@ -50,7 +57,9 @@
         <div class="row">
             <nav class="navbar navbar-default"> <!-- main menu navigation -->
                 <ul class="nav navbar-nav">
-                    <li ng-repeat="entry in navigationEntry"><a href="#">{{entry.name}}</a></li>
+                    <!-- <li ng-repeat="entry in navigationEntry"><a href="#">{{entry.name}}</a></li>-->
+                    <li><a href="#"><input type="csvfile" id="theFile"/></a></li>
+                    <button id="readfile" type="button" ng-click="readcsv()">read.csv</button>
                 </ul>
             </nav>
         </div>
@@ -58,44 +67,59 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3 "> <!-- panel menu content -->
+            <div class="col-md-2 "> <!-- panel menu content -->
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Menu</div>
+                    <div class="panel-heading text-center">Menu</div>
                     <div class="panel-body">
+                        <!--
+                        <a href="#" ng-repeat="entry in menuEntry"><span class="label label-primary" id="{{entry.id}}">{{entry.name}}</span></a>
+                        -->
                         <a href="#" ng-repeat="entry in menuEntry"><span class="label label-primary" id="{{entry.id}}">{{entry.name}}</span></a>
                     </div>
                 </div>
             </div>
-            <div class="cold-md-9"> 
-                <div class="col-md-6" id="workspace"> <!-- workspace -->
-                    Workspace
-                </div>
-                <div class="col-md-3 " id="output"> <!-- code transcript -->
-                    <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
-                    <div class="editor" ui-ace="aceOptions" ng-model="code" id="aceEditor">{{code}}</div>
+            <div class="cold-md-10"> 
+                <div class="col-md-5"> <!-- workspace -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Workspace</div>
+                        <div class="panel-body" id="workspace"></div>
+                    </div>                            
+                </div>                        
+                <div class="col-md-5"> <!-- code transcript -->
+                    <div class="editor" ui-ace="aceOptions" ng-model="code" id="aceEditor"></div>        
+                    <button type="button" class="btn btn-default" ng-click="runcode()">
+                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--
-    <ol class="breadcrumb" ng-controller="controller2">
-        <li ng-repeat="function in functions" ng-click="makecode(function.name)" id="{{function.name}}"><a href="#">{{function.name}}</a></li>
-    </ol>
-    -->
+    <div class="modal fade" id="rnorm-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><code>rnorm</code> Random generator for the normal distribution</h4>
+                </div>
     
-    <!--
-    <div class="row">
-        <div class="col-md-6">
-            <div class="editor" ui-ace="aceOptions" ng-model="code">{{code}}</div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <span class="input-group-addon">Number of observations</span>
+                        <input type="text" id="rnorm-obs" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6" id="output">
-          Output goes here
-      </div>
     </div>
-    
-    <button type="button" class="btn btn-default" ng-click="runcode()">Run code</button>
-    -->
 
 </body>
 
