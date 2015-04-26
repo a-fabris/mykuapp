@@ -62,7 +62,8 @@ app.controller("mainController", ["$scope",  function($scope) {
         $scope.runcode = function(){
 
             //because identity is in base
-            ocpu.seturl("https://public.opencpu.org/ocpu/library/base/R")
+            ocpu.seturl("https://public.opencpu.org/ocpu/library/base/R");
+            
             //arguments
             var mysnippet = new ocpu.Snippet($("#aceEditor").val());
 
