@@ -80,7 +80,10 @@ app.controller("mainController", ["$scope",  function($scope) {
             }, function(session){
                 session.getConsole(function(outtxt){
                     //alert(typeof outtxt);
-                    $("#workspace").text(outtxt); 
+                    var obj = $.parseJSON(outtxt)
+                    
+                    alert(obj);
+                    //$("#workspace").text(outtxt); 
                 });
             });
                 
