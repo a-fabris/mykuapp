@@ -78,12 +78,19 @@ app.controller("mainController", ["$scope",  function($scope) {
             var req = ocpu.call("identity", {
                 "x" : mysnippet
             }, function(session){
+
+                /*
                 session.getConsole(function(outtxt){
                     //alert(typeof outtxt);
                     var obj = $.parseJSON(outtxt)
                     
                     alert(obj);
                     //$("#workspace").text(outtxt); 
+                });
+                */
+
+                session.getObject(function(data){
+                    alert("data returned: " + data);
                 });
             });
                 
