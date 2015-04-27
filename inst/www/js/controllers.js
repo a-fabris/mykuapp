@@ -90,7 +90,8 @@ app.controller("mainController", ["$scope",  function($scope) {
                 */
 
                 session.getObject(function(data){
-                    alert("type of data returned: " + typeof data);
+                    //alert("type of data returned: " + data);
+                    $("#workspace").text(data); 
                 });
             });
                 
