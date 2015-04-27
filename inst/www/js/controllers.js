@@ -123,24 +123,20 @@ app.controller("mainController", ["$scope",  function($scope) {
                 "sep" : " "
             }, function(session){
 
-                /*
-                session.getConsole(function(outtxt){
-                $("#workspace").text(outtxt); 
-                });
-                */
-
                 session.getObject(function(data){
 
+                    //var obj = $.parseJSON(data);
+
+                    /*
                     jQuery.each(data, function(i, val) {
                         //$("#" + i).append(document.createTextNode(" - " + val));
                         
                         $("#workspace").html("<p>"+ i + " - " + val +"</p><br>");
                     }); 
-                    
-                    //alert("type of data returned: " + data);
+                    */
+                  alert("type of data returned: " + data);
                     //$("#workspace").text(data); 
                 });
-
             });
         }
 
