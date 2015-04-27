@@ -114,7 +114,7 @@ app.controller("mainController", ["$scope",  function($scope) {
             }
 
             //disable the button during upload
-            $("#readfile").attr("disabled", "disabled");
+            //$("#readfile").attr("disabled", "disabled");
 
             //perform the request
             var req = ocpu.call("read.csv", {
