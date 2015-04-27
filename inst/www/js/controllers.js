@@ -16,6 +16,13 @@ app.controller("mainController", ["$scope",  function($scope) {
             {"name" : "tasks"}
         ];
 
+        $scope.tasks = [
+            {"name" : "Load external data", "id": "task_load"},
+            {"name" : "Create function", "id": "task_funct"},
+            {"name" : "Generate random sample", "id" : "task_sample"},
+            {"name" : "Scale object", "id" : "task_scale"}
+        ];
+
         $scope.menuEntry = [
             {"name" : "rnorm", "id" : "rnorm"},
             {"name" : "mean", "id" : "mean"},
@@ -102,6 +109,7 @@ app.controller("mainController", ["$scope",  function($scope) {
             
         }
 
+        //read an external data table
         $scope.readcsv = function(){
 
             //because read.csv is in utils
@@ -113,9 +121,6 @@ app.controller("mainController", ["$scope",  function($scope) {
             return;
             }
 
-            //disable the button during upload
-            //$("#readfile").attr("disabled", "disabled");
-
             //perform the request
             var req = ocpu.call("read.csv", {
                 "file" : myfile,
@@ -125,18 +130,35 @@ app.controller("mainController", ["$scope",  function($scope) {
 
                 session.getObject(function(data){
 
-                    var obj = $.parseJSON(data);
+                    //prints the json object into a table
+                    var table = "<table class=\"table table-bordered\" id=\"dataframe\"></table>";
+                    $("#workspace").html(table);
 
-                    /*
-                    jQuery.each(data, function(i, val) {
-                        //$("#" + i).append(document.createTextNode(" - " + val));
-                        
-                        $("#workspace").html("<p>"+ i + " - " + val +"</p><br>");
-                    }); 
-                    */
-                  alert("type of data returned: " + data);
-                    //$("#workspace").text(data); 
+                    var dataHeaders = data.slice(0,1);
+                    var header = "";
+
+                    $.each(dataHeaders, function(index, value){
+                        header = "<tr><td>#</td>";
+                        $.each(value, function(idx, obj){
+                            header = header + "<th>"+idx+"</th>";
+                        });
+                        header = header + "</tr>";
+                    });
+
+                    $("#dataframe").append(header);
+
+                    $.each(data, function(index, value){
+                        //console.log(index);
+                        var row = "<tr><td>"+index+"</td>";
+                        $.each(value, function(idx, obj){
+                            //console.log(idx,obj);
+                            row = row + "<td>"+obj+"</td>";
+                        });
+                        row = row + "</tr>";
+                        $("#dataframe").append(row);
+                    });
                 });
+                
             });
         }
 

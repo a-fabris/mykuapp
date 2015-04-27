@@ -4,6 +4,17 @@ $( init );
 
 function init() {
 
+	$("#task_load").click(function(){
+		
+		//alert("task clicked");
+		$("#dashboard").load( "../html/task_load.html", function(response, status, xhr){
+ 			if ( status == "error" ) {
+				var msg = "Sorry but there was an error: ";
+				alert( msg + xhr.status + " " + xhr.statusText );
+			}
+		});
+	});
+
 	// access editor
 	var editor = ace.edit("aceEditor");
 

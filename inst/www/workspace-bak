@@ -1,0 +1,46 @@
+        <div class="row">
+            <div class="col-md-2 "> <!-- panel menu content -->
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center">Menu</div>
+                    <div class="panel-body">
+                        <!--
+                        <a href="#" ng-repeat="entry in menuEntry"><span class="label label-primary" id="{{entry.id}}">{{entry.name}}</span></a>
+                        -->
+                        <a href="#" ng-repeat="entry in menuEntry"><span class="label label-primary" id="{{entry.id}}">{{entry.name}}</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="cold-md-10"> 
+                <div class="col-md-5"> <!-- workspace -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Workspace</div>
+                        <div class="panel-body" id="workspace"></div>
+                    </div>                            
+                </div>                        
+                <div class="col-md-5"> <!-- code transcript -->
+                    <div class="editor" ui-ace="aceOptions" ng-model="code" id="aceEditor"></div>        
+                    <button type="button" class="btn btn-default" ng-click="runcode()" id="runbutton">
+                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+                <div class="col-md-3 "> <!-- panel menu content -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Menu</div>
+                        <div class="panel-body">
+                            <!--
+                            <a href="#" ng-repeat="entry in menuEntry"><span class="label label-primary" id="{{entry.id}}">{{entry.name}}</span></a>
+                            -->
+                            <a href="#" ng-repeat="entry in menuEntry"><span class="label label-primary" id="{{entry.id}}">{{entry.name}}</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5"> <!-- workspace -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Workspace</div>
+                        <div class="panel-body" id="workspace"></div>
+                    </div>                            
+                </div> 
