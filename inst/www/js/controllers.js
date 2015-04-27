@@ -130,8 +130,15 @@ app.controller("mainController", ["$scope",  function($scope) {
                 */
 
                 session.getObject(function(data){
+
+                    jQuery.each(data, function(i, val) {
+                        //$("#" + i).append(document.createTextNode(" - " + val));
+                        
+                        $("#workspace").html("<p>"+ i + " - " + val +"</p><br>");
+                    }); 
+                    
                     //alert("type of data returned: " + data);
-                    $("#workspace").text(data); 
+                    //$("#workspace").text(data); 
                 });
 
             });
