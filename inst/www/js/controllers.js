@@ -122,9 +122,18 @@ app.controller("mainController", ["$scope",  function($scope) {
                 "header" : false,
                 "sep" : " "
             }, function(session){
+
+                /*
                 session.getConsole(function(outtxt){
                 $("#workspace").text(outtxt); 
                 });
+                */
+
+                session.getObject(function(data){
+                    //alert("type of data returned: " + data);
+                    $("#workspace").text(data); 
+                });
+
             });
         }
 
