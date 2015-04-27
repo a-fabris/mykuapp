@@ -125,7 +125,7 @@ app.controller("mainController", ["$scope",  function($scope) {
 
                 session.getObject(function(data){
 
-                    //var obj = $.parseJSON(data);
+                    var obj = $.parseJSON(data);
 
                     /*
                     jQuery.each(data, function(i, val) {
