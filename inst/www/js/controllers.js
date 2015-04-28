@@ -86,16 +86,6 @@ app.controller("mainController", ["$scope",  function($scope) {
                 "x" : mysnippet
             }, function(session){
 
-                /*
-                session.getConsole(function(outtxt){
-                    //alert(typeof outtxt);
-                    var obj = $.parseJSON(outtxt)
-                    
-                    alert(obj);
-                    //$("#workspace").text(outtxt); 
-                });
-                */
-
                 session.getObject(function(data){
                     //alert("type of data returned: " + data);
                     $("#workspace").text(data); 
@@ -115,6 +105,7 @@ app.controller("mainController", ["$scope",  function($scope) {
             //because read.csv is in utils
             ocpu.seturl("https://public.opencpu.org/ocpu/library/utils/R");
             var myfile = $("#csvfile")[0].files[0];
+            var myfileTxt = $('#csvfile').val();
 
             if(!myfile){
                 alert("No file selected.");
@@ -122,7 +113,7 @@ app.controller("mainController", ["$scope",  function($scope) {
             }
 
             //perform the request
-            var req = ocpu.call("read.csv", {
+            var req = ocpu.call("read.table", {
                 "file" : myfile,
                 "header" : false,
                 "sep" : " "
@@ -160,6 +151,12 @@ app.controller("mainController", ["$scope",  function($scope) {
                 });
                 
             });
+
+            //update transcript
+            var editor = ace.edit("aceEditor");
+            editor.insert("read.table("+ myfileTxt + ", header = FALSE, sep = \" \")\n");
+
+
         }
 
 }]);

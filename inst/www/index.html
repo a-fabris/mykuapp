@@ -29,6 +29,7 @@
 
     <!-- Custom scripts and style -->
     <script src="js/dragdrops.js"></script>
+
     <script type="text/javascript" src="js/controllers.js"></script> <!-- load angular controllers -->
     <!--<script type="text/javascript" src="js/taskloader.js"></script>-->
 
@@ -68,11 +69,6 @@
                             <li ng-repeat="task in tasks"><a href="#" id="{{task.id}}">{{task.name}}</a></li>
                         </ul>
                     </div>
-                    <!--<li ng-repeat="entry in navigationEntry"><a href="#">{{entry.name}}</a></li>-->
-                    <!--
-                    <li><a href="#"><input type="file" id="csvfile"/></a></li>
-                    <button id="readfile" type="button" ng-click="readcsv()">read.csv</button>
-                    -->
                 </ul>
             </nav>
         </div>
@@ -82,9 +78,31 @@
 
         <div class="row">
 
-            <div id="dashboard">
-                       
-            </div>
+                <div class="col-md-3 "> <!-- panel menu content -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Menu</div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="entry in menuEntry" id="{{entry.id}}">{{entry.name}}</li>
+                                <!--
+                                <li class="list-group-item">
+                                    <input type="file" id="csvfile"/><button id="readfile" type="button" ng-click="readcsv()">read.csv</button>
+                                </li>
+                                -->
+                                <li class="list-group-item">
+                                    <input type="file" id="csvfile"/>
+                                    <button class="btn btn-primary" id="readfile" type="button" ng-click="readcsv()">Load table</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5"> <!-- workspace -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Workspace</div>
+                        <div class="panel-body" id="workspace"></div>
+                    </div>                            
+                </div> 
  
 
                 <div class="col-md-4"> <!-- code transcript -->

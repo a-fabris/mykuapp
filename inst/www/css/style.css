@@ -18,8 +18,9 @@
 	z-index: -1;
 }
 
-.ui-draggable-dragging { z-index: 10000 }
+.ui-draggable-dragging { z-index: 10000!important; }
+
 
 .modal, .fade {
-	zIndex: 10001;
+	zIndex: 1000;
 }
