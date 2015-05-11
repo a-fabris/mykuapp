@@ -10,10 +10,11 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- bootstrap -->
-    <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">--> <!-- jquery ui -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"> <!-- jquery ui -->
 
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
 
     <!-- load ace edior -->
     <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
@@ -27,6 +28,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="http://cdn.opencpu.org/opencpu-0.4.js"></script>
 
+    <!-- d3.js -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
     <!-- Custom scripts and style -->
     <script src="js/dragdrops.js"></script>
 
@@ -35,6 +39,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+
 
 <body ng-app="app" ng-controller="mainController">
 
@@ -66,7 +71,7 @@
                             Tasks <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="task in tasks"><a href="#" id="{{task.id}}">{{task.name}}</a></li>
+                            <li ng-repeat="task in tasks"><a href="#" id="{{task.id}}" ng-click="setWorkspaceFromTask(task.id)">{{task.name}}</a></li>
                         </ul>
                     </div>
                 </ul>
@@ -111,7 +116,6 @@
                         <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run
                     </button>
                 </div>
-
         </div>
     </div>
 
@@ -124,7 +128,6 @@
                     </button>
                     <h4 class="modal-title"><code>rnorm</code> Random generator for the normal distribution</h4>
                 </div>
-    
                 <div class="modal-body">
                     <div class="input-group">
                         <span class="input-group-addon">Number of observations</span>

@@ -17,7 +17,7 @@ app.controller("mainController", ["$scope",  function($scope) {
         ];
 
         $scope.tasks = [
-            {"name" : "Load external data", "id": "task_load"},
+            {"name" : "K-nearest-neighbor", "id": "task_knn"},
             {"name" : "Create function", "id": "task_funct"},
             {"name" : "Generate random sample", "id" : "task_sample"},
             {"name" : "Scale object", "id" : "task_scale"}
@@ -35,6 +35,16 @@ app.controller("mainController", ["$scope",  function($scope) {
 			mode : 'r',
 			useWrapMode : 'true'
 		};
+
+        $scope.setWorkspaceFromTask = function(task_id){
+            switch(task_id){
+                case "task_knn":
+                    console.log("k nearest task");
+                    break;
+                default:
+                    console.log("task unknow");
+            }
+        }
 
 		$scope.example = "Example Works!";
 
@@ -128,6 +138,7 @@ app.controller("mainController", ["$scope",  function($scope) {
                     var dataHeaders = data.slice(0,1);
                     var header = "";
 
+                    //table header
                     $.each(dataHeaders, function(index, value){
                         header = "<tr><td>#</td>";
                         $.each(value, function(idx, obj){
