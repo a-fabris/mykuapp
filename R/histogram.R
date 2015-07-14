@@ -2,5 +2,5 @@ library(ggplot2)
 library(MASS)
 
 histogram <- function(){
-	qplot(calories, data = UScereal, geom="histogram"); 
+	ggplot2::qplot(calories, data = UScereal, geom="histogram"); 
 }
