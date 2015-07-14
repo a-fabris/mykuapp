@@ -80,11 +80,7 @@ $("#plotFromR").click(function(){
 
     //ocpu.seturl("https://public.opencpu.org/ocpu/library/ggplot2/R");
 
-    var req = $("#vis-area").rplot("qplot", {
-    	x : "calories",
-        data : UScereal,
-        geom : "histogram"
-    });
+    var req = $("#vis-area").rplot("histogram");
     
     //optional
     req.fail(function(){
