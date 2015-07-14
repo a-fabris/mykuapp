@@ -2,7 +2,6 @@ $( taskLoader );
 
 function taskLoader(){
 
-
 	$("#task_load").click(function(){
 
 		$("#dashboard").html(" \
@@ -24,10 +23,6 @@ function taskLoader(){
                 </div>  \
 			");
 
-		
-
 	});
-
-
 		 
 }

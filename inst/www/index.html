@@ -1,149 +1,226 @@
 <!-- index.html -->
 <!doctype html>
 <html>
-<head>   
+	
+<head>  
    <!-- META -->
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-    <title>Thesis Prototype</title>
+    <!-- js -->
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script> <!-- jquery -->
+    <script type="text/javascript" src="bower_components/d3/d3.js"></script> <!-- d3.js data visualization -->
+    <script type="text/javascript" src="bower_components/opencpu/opencpu-0.5.js"></script>
+
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> <!-- bootstrap -->
+    <script type="text/javascript" src="bower_components/handsontable/dist/handsontable.full.js"></script> <!-- handsontable -->
+    <script type="text/javascript" src="bower_components/papaparse/papaparse.js"></script> <!-- papa parse csv to json -->
+
 
     <!-- CSS -->
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- bootstrap -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"> <!-- jquery ui -->
+    <link rel="stylesheet" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.css"><!-- bootstrap -->
+    <link rel="stylesheet" media="screen" href="bower_components/font-awesome/css/font-awesome.css"><!-- font awesome -->
+    <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css"><!-- handsontable -->
 
-    <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-
-    <!-- load ace edior -->
-    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-    <!-- load ui-ace -->
-    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
-    
-
-    <!-- Jquery, JqueryUI, Bootstrap, OpenCPU frameworks-->
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://cdn.opencpu.org/opencpu-0.4.js"></script>
-
-    <!-- d3.js -->
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
-    <!-- Custom scripts and style -->
-    <script src="js/dragdrops.js"></script>
-
-    <script type="text/javascript" src="js/controllers.js"></script> <!-- load angular controllers -->
-    <!--<script type="text/javascript" src="js/taskloader.js"></script>-->
-
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style type="text/css">
+    	#data-container { height: 350px; width: 100%; overflow: hidden;}
+    	#vis-area {height: 350px; width: 100%; margin: 5px;}
+    </style>
 </head>
 
+<body>
+	<div class="container-fluid">
+		<div class="row"> <!-- header -->
+			<div class="col-md-4">
+				<h4>Thesis Prototype <small>Andrea Fabris</small></h4>
+			</div>
+			<div class="col-md-1 col-md-offset-7">
+				<button type="button" class="btn btn-default"><i class="fa  fa-question fa-2x"></i></button>
+			</div>
+		</div>
 
-<body ng-app="app" ng-controller="mainController">
+		<div class="row">
+			<input type="file" name="csv" id="csvfile">
+			<button class="btn btn-default" type="button" onClick="readCSV()">Load table</button>
+			<button class="btn btn-default" type="button" id="plotFromR">GGPlot distribution</button>
+		</div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8"> <!-- header title goes here -->
-                <h2>
-                <code>{{headerTitle}}</code>
-                </h2>
-            </div> <!-- .header title -->
-            <div class="col-md-4">
-                <ol class="list-inline navbar-right">
-                    <li ng-repeat="info in infoLinks">
-                        <a href="#"><code>{{info.name}}</code></a>
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </div>
+		<div class="row">
+			<div class="col-md-10">
+				<div class="row" id="vis-area"> <!-- plot placeholder -->
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="btn-group btn-group-lg" role="group" aria-label="..." id="data-features">
+						</div>
+					</div>
+				</div>
+				<div class="row" id="data-container"> <!-- data placeholder -->
+				</div>
+			</div>
+			<div class="col-md-2" id="transcript"> <!-- code transcript -->
+			</div>
+		</div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="navbar navbar-default"> <!-- main menu navigation -->
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Home</a></li>
-                    <!-- Single button -->
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Tasks <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="task in tasks"><a href="#" id="{{task.id}}" ng-click="setWorkspaceFromTask(task.id)">{{task.name}}</a></li>
-                        </ul>
-                    </div>
-                </ul>
-            </nav>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-
-        <div class="row">
-
-                <div class="col-md-3 "> <!-- panel menu content -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading text-center">Menu</div>
-                        <div class="panel-body">
-                            <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="entry in menuEntry" id="{{entry.id}}">{{entry.name}}</li>
-                                <!--
-                                <li class="list-group-item">
-                                    <input type="file" id="csvfile"/><button id="readfile" type="button" ng-click="readcsv()">read.csv</button>
-                                </li>
-                                -->
-                                <li class="list-group-item">
-                                    <input type="file" id="csvfile"/>
-                                    <button class="btn btn-primary" id="readfile" type="button" ng-click="readcsv()">Load table</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5"> <!-- workspace -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading text-center">Workspace</div>
-                        <div class="panel-body" id="workspace"></div>
-                    </div>                            
-                </div> 
- 
-
-                <div class="col-md-4"> <!-- code transcript -->
-                    <div class="editor" ui-ace="aceOptions" ng-model="code" id="aceEditor"></div>        
-                    <button type="button" class="btn btn-default" ng-click="runcode()" id="runbutton">
-                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run
-                    </button>
-                </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="rnorm-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title"><code>rnorm</code> Random generator for the normal distribution</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon">Number of observations</span>
-                        <input type="text" id="rnorm-obs" class="form-control" placeholder="" aria-describedby="basic-addon1">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+	</div>
 </body>
+
+<script>
+
+var container = document.getElementById('data-container');
+
+var cerealData; 
+
+var setVariables = []; //array to store the data variables
+
+var isChecked;
+
+//call R function: stocks::smoothplot(ticker=ticker)
+$("#plotFromR").click(function(){
+    //var ticker = $("#ticker").val();
+
+    ocpu.seturl("https://public.opencpu.org/ocpu/library/ggplot2/R");
+
+    var req = $("#vis-area").rplot("qplot", {
+    	x : "calories",
+        data : UScereal,
+        geom : "histogram"
+    });
+    
+    //optional
+    req.fail(function(){
+        alert("R returned an error: " + req.responseText); 
+    });
+});
+
+    var hot = new Handsontable(container, {
+		//startRows: 8,
+    	//startCols: 6,
+    	rowHeaders: true,
+    	contextMenu: true,
+    	customBorders: true,
+		manualColumnMove: true,
+    	manualRowMove: true
+	});
+
+    function readCSV(){
+		
+		// Parse local CSV file
+		var cereal = $("#csvfile")[0].files[0];
+		
+		Papa.parse(cereal, {
+			
+			complete: function(results) {
+		
+				cerealData = results.data;
+
+				//console.log(results.data);
+
+				hot.updateSettings({colHeaders : results.data[0]});
+
+				hot.loadData(results.data);
+
+				for(var i = 0 ; i < results.data[0].length ; i++){
+					$( "#data-features" ).append( "<button type='button' class='btn btn-default' id='btn_" +results.data[0][i] + "''>"+ results.data[0][i] +"</button>" );	
+				}
+
+
+    			$(document).ready(function(){
+
+    				$("button").click(function(event){
+    					var btnId = event.target.id;
+    					plotFromFeature(btnId);
+    				});
+
+    				/*
+					$("#btn_calories").click(function(){
+    					console.log("clicked");
+    					d3Plot();
+    				});
+					*/
+
+				}); // .document.ready
+
+			}			
+		});
+    }
+
+    function plotFromFeature(btnId){
+    	var feature = btnId.substring(4);
+    	console.log("feature from id: " + feature);
+
+    	/*logic to show the single plot*/
+
+    	d3Plot(feature);
+    }
+
+    function d3Plot(featureToPlot){
+    	
+    	console.log("printing feature to plot val: " + featureToPlot.val);
+
+    	var width = 300,
+    		height= 300,
+    		padding = 50
+    		bins = 15;
+
+    	d3.csv("data/UScereal.csv", function(data){
+
+    		console.log("printing feature to plot val in csv: " + featureToPlot.val);
+
+    		var feature = data.map(function(i){ return parseInt(i.calories); })
+
+
+
+    		//console.log("feature to plot: " + featureToPlot + " data: " + feature );
+
+    		var histogram = d3.layout.histogram()
+    			.bins(bins)
+				(feature)
+
+			var y = d3.scale.linear()
+				.domain([0, d3.max(histogram.map(function(i){ return i.length; }))])
+				.range([0, height]);
+
+			var x = d3.scale.linear()
+				.domain([0, d3.max(feature)])
+				.range([0, width]);
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom");
+
+			var canvas = d3.select("#vis-area").append("svg")
+				.attr("width",width)
+				.attr("height",height + padding)
+				.append("g")
+					.attr("transform","translate(20,0)");
+
+			var group = canvas.append("g")
+				.attr("transform", "translate(0," + height + ")")
+				.call(xAxis);
+
+			var bars = canvas.selectAll(".bar")
+				.data(histogram)
+				.enter()
+				.append("g");
+
+-			bars.append("rect")
+				.attr("x", function(d){ return x(d.x); })
+				.attr("y", function(d){ return height - y(d.y)})
+				.attr("width", function(d){ return x(d.dx); })
+				.attr("height", function(d){ return y(d.y); })
+				.attr("fill", "steelblue");
+
+			bars.append("text")
+				.attr("x", function(d){ return x(d.x); })
+				.attr("y", function(d){ return height - y(d.y)})
+				.attr("dy", "20px")
+				.attr("dx", function(d){ return x(d.dx)/2; })
+				.attr("fill","#fff")
+				.attr("text-anchor", "middle")
+				.text(function(d){ return d.y; }); //returns the number of elements
+    	});
+    }
+
+</script>
 
 </html>
