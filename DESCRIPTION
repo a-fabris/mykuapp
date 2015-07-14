@@ -8,4 +8,6 @@ Maintainer: Andrea <afabris86@gmail.com>
 Description: This is a test package for my Master's Thesis
 License: Apache2
 LazyData: true
-Imports: ggplot2 >= 1.0.1
+Imports:
+	ggplot2,
+	MASS
