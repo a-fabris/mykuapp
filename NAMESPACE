@@ -1,1 +1,1 @@
-export(qplot)
+export(histogram)
