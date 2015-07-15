@@ -1,0 +1,1 @@
+var kuToR = angular.module('kuToR', ['mainController']);

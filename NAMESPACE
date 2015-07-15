@@ -1,3 +1,4 @@
 export(histogram)
+export(histoFromFeature)
 import(ggplot2)
 import(MASS)

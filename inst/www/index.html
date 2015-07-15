@@ -6,15 +6,20 @@
    <!-- META -->
 	<meta charset="utf-8">
 
-    <!-- js -->
+    <!-- JS Frameworks -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script> <!-- jquery -->
     <script type="text/javascript" src="bower_components/d3/d3.js"></script> <!-- d3.js data visualization -->
-    <script type="text/javascript" src="bower_components/opencpu/opencpu-0.5.js"></script>
+    <script type="text/javascript" src="bower_components/opencpu/opencpu-0.5.js"></script> <!-- open CPU -->
+    
 
     <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> <!-- bootstrap -->
     <script type="text/javascript" src="bower_components/handsontable/dist/handsontable.full.js"></script> <!-- handsontable -->
     <script type="text/javascript" src="bower_components/papaparse/papaparse.js"></script> <!-- papa parse csv to json -->
 
+    <!-- Angular -->
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script> <!-- angular.js -->
+    <script type="text/javascript" src="app.js"></script> <!-- angular app definition -->
+    <script type="text/javascript" src="controllers/mainController.js"></script> <!-- main controller -->
 
     <!-- CSS -->
     <link rel="stylesheet" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.css"><!-- bootstrap -->
@@ -23,11 +28,11 @@
 
     <style type="text/css">
     	#data-container { height: 350px; width: 100%; overflow: hidden;}
-    	#vis-area {height: 350px; width: 100%; margin: 5px;}
+    	#vis-area {height: 350px; width: 300px; margin: 5px;}
     </style>
 </head>
 
-<body>
+<body ng-app="kuToR">
 	<div class="container-fluid">
 		<div class="row"> <!-- header -->
 			<div class="col-md-4">
@@ -141,12 +146,23 @@ $("#plotFromR").click(function(){
     }
 
     function plotFromFeature(btnId){
-    	var feature = btnId.substring(4);
-    	console.log("feature from id: " + feature);
+    	
+    	var myFeature = "";
+    	myFeature = btnId.substring(4);
+    	console.log("feature from id: " + myFeature);
 
     	/*logic to show the single plot*/
 
-    	d3Plot(feature);
+    	//d3Plot(feature);
+
+    	var req = $("#vis-area").rplot("histoFromFeature",{
+    		feature : myFeature 
+    	});
+    
+    	//optional
+    	req.fail(function(){
+			alert("R returned an error: " + req.responseText); 
+		});
     }
 
     function d3Plot(featureToPlot){
