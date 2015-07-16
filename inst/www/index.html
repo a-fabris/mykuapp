@@ -21,63 +21,66 @@
     <script type="text/javascript" src="app.js"></script> <!-- angular app definition -->
     <script type="text/javascript" src="controllers/mainController.js"></script> <!-- main controller -->
 
+    <!-- custom JS -->
+	<script type="text/javascript" src="js/plotLogic.js"></script> <!-- main controller -->    
+
     <!-- CSS -->
     <link rel="stylesheet" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.css"><!-- bootstrap -->
     <link rel="stylesheet" media="screen" href="bower_components/font-awesome/css/font-awesome.css"><!-- font awesome -->
     <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css"><!-- handsontable -->
 
     <style type="text/css">
-    	#data-container { height: 350px; width: 100%; overflow: hidden;}
-    	#vis-area {height: 350px; width: 300px; margin: 5px;}
+    	#data-area{ height: 350px; width: 100%; overflow: hidden;}
+    	#vis-area {height: 350px; width: 100%;}
+    	/*#code-area {width: 100%; height: 100%; background-color: blue;}*/
     </style>
 </head>
 
 <body ng-app="kuToR">
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row"> <!-- header -->
-			<div class="col-md-4">
+			<div class="span12">
 				<h4>Thesis Prototype <small>Andrea Fabris</small></h4>
-			</div>
-			<div class="col-md-1 col-md-offset-7">
-				<button type="button" class="btn btn-default"><i class="fa  fa-question fa-2x"></i></button>
+				<input type="file" name="csv" id="csvFile">
+				<button class="btn btn-default" type="button" id="readCSV">Load table</button>
 			</div>
 		</div>
 
 		<div class="row">
-			<input type="file" name="csv" id="csvfile">
-			<button class="btn btn-default" type="button" onClick="readCSV()">Load table</button>
-			<button class="btn btn-default" type="button" id="plotFromR">GGPlot distribution</button>
-		</div>
-
-		<div class="row">
-			<div class="col-md-10">
-				<div class="row" id="vis-area"> <!-- plot placeholder -->
+			<div class="span10" id="workspace"> <!-- workspace -->
+				<div class="row"> 
+					<div class="span12" id="vis-area"> 
+					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<div class="btn-group btn-group-lg" role="group" aria-label="..." id="data-features">
+					<div class="span12">
+						<div class="row">
+							<div class="span12">
+								Show data table: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br/>
+								<div id="data-features"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="span12" id="data-area" ng-show="checked">
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row" id="data-container"> <!-- data placeholder -->
-				</div>
 			</div>
-			<div class="col-md-2" id="transcript"> <!-- code transcript -->
+			<div class="span2" id="code-area"> <!-- global transcritp -->
 			</div>
 		</div>
-
 	</div>
 </body>
 
 <script>
 
-var container = document.getElementById('data-container');
+
+var container = document.getElementById('data-area');
 
 var cerealData; 
 
-var setVariables = []; //array to store the data variables
-
-var isChecked;
+var featureSet = new Set(); //array to store the data variables
 
 //call R function: stocks::smoothplot(ticker=ticker)
 $("#plotFromR").click(function(){
@@ -103,57 +106,51 @@ $("#plotFromR").click(function(){
     	manualRowMove: true
 	});
 
-    function readCSV(){
+$("#readCSV").click(function(){
+
+	var csvFile = $("#csvFile")[0].files[0];
+
+	Papa.parse(csvFile, {
 		
-		// Parse local CSV file
-		var cereal = $("#csvfile")[0].files[0];
-		
-		Papa.parse(cereal, {
-			
-			complete: function(results) {
-		
-				cerealData = results.data;
+		complete: function(results) {
+	
+			hot.updateSettings({colHeaders : results.data[0]});
+	
+			hot.loadData(results.data);
+	
+			for(var i = 0 ; i < results.data[0].length ; i++){
 
-				//console.log(results.data);
+				var txtToAppend = "";
+				txtToAppend += "<span class='label label-default'>";
+				txtToAppend += "<input type='checkbox' name='checkbox' id='chk_" + results.data[0][i] + "' value='" + results.data[0][i] + "' />";
+				txtToAppend += results.data[0][i];
+				txtToAppend += "</span>";
 
-				hot.updateSettings({colHeaders : results.data[0]});
+				$( "#data-features" ).append( txtToAppend );
+			}
 
-				hot.loadData(results.data);
+   			$(document).ready(function(){
+   				featureListener();
+   				/*
+   				$("button").click(function(event){
+   					var btnId = event.target.id;
+   					plotFromFeature(btnId);
+   				});
+				*/
 
-				for(var i = 0 ; i < results.data[0].length ; i++){
-					$( "#data-features" ).append( "<button type='button' class='btn btn-default' id='btn_" +results.data[0][i] + "''>"+ results.data[0][i] +"</button>" );	
-				}
 
+			}); // .document.ready
+		}			
+	})
 
-    			$(document).ready(function(){
-
-    				$("button").click(function(event){
-    					var btnId = event.target.id;
-    					plotFromFeature(btnId);
-    				});
-
-    				/*
-					$("#btn_calories").click(function(){
-    					console.log("clicked");
-    					d3Plot();
-    				});
-					*/
-
-				}); // .document.ready
-
-			}			
-		});
-    }
+});
 
     function plotFromFeature(btnId){
     	
     	var myFeature = "";
-    	myFeature = btnId.substring(4);
-    	console.log("feature from id: " + myFeature);
-
-    	/*logic to show the single plot*/
-
-    	//d3Plot(feature);
+    	myFeature = btnId.substring(4); // cuts btn_ prefix
+    	
+    	//console.log("feature from id: " + myFeature);
 
     	var req = $("#vis-area").rplot("histoFromFeature",{
     		feature : myFeature 
@@ -163,74 +160,6 @@ $("#plotFromR").click(function(){
     	req.fail(function(){
 			alert("R returned an error: " + req.responseText); 
 		});
-    }
-
-    function d3Plot(featureToPlot){
-    	
-    	console.log("printing feature to plot val: " + featureToPlot.val);
-
-    	var width = 300,
-    		height= 300,
-    		padding = 50
-    		bins = 15;
-
-    	d3.csv("data/UScereal.csv", function(data){
-
-    		console.log("printing feature to plot val in csv: " + featureToPlot.val);
-
-    		var feature = data.map(function(i){ return parseInt(i.calories); })
-
-
-
-    		//console.log("feature to plot: " + featureToPlot + " data: " + feature );
-
-    		var histogram = d3.layout.histogram()
-    			.bins(bins)
-				(feature)
-
-			var y = d3.scale.linear()
-				.domain([0, d3.max(histogram.map(function(i){ return i.length; }))])
-				.range([0, height]);
-
-			var x = d3.scale.linear()
-				.domain([0, d3.max(feature)])
-				.range([0, width]);
-
-			var xAxis = d3.svg.axis()
-				.scale(x)
-				.orient("bottom");
-
-			var canvas = d3.select("#vis-area").append("svg")
-				.attr("width",width)
-				.attr("height",height + padding)
-				.append("g")
-					.attr("transform","translate(20,0)");
-
-			var group = canvas.append("g")
-				.attr("transform", "translate(0," + height + ")")
-				.call(xAxis);
-
-			var bars = canvas.selectAll(".bar")
-				.data(histogram)
-				.enter()
-				.append("g");
-
--			bars.append("rect")
-				.attr("x", function(d){ return x(d.x); })
-				.attr("y", function(d){ return height - y(d.y)})
-				.attr("width", function(d){ return x(d.dx); })
-				.attr("height", function(d){ return y(d.y); })
-				.attr("fill", "steelblue");
-
-			bars.append("text")
-				.attr("x", function(d){ return x(d.x); })
-				.attr("y", function(d){ return height - y(d.y)})
-				.attr("dy", "20px")
-				.attr("dx", function(d){ return x(d.dx)/2; })
-				.attr("fill","#fff")
-				.attr("text-anchor", "middle")
-				.text(function(d){ return d.y; }); //returns the number of elements
-    	});
     }
 
 </script>
