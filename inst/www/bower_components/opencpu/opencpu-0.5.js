@@ -282,17 +282,17 @@ if(!window.jQuery) {
       var pdf = $('<a />').attr({
         target: "_blank",
         style: "position: absolute; top: 10px; right: 10px; z-index:1000; text-decoration:underline; font-family: monospace;"
-      }).text("pdf").appendTo(plotdiv);
+      }).text("pdf");//.appendTo(plotdiv);
 
       var svg = $('<a />').attr({
         target: "_blank",
         style: "position: absolute; top: 30px; right: 10px; z-index:1000; text-decoration:underline; font-family: monospace;"
-      }).text("svg").appendTo(plotdiv);
+      }).text("svg");//.appendTo(plotdiv);
 
       var png = $('<a />').attr({
         target: "_blank",
         style: "position: absolute; top: 50px; right: 10px; z-index:1000; text-decoration:underline; font-family: monospace;"
-      }).text("png").appendTo(plotdiv);
+      }).text("png");//.appendTo(plotdiv);
 
       function updatepng(){
         if(!Location) return;

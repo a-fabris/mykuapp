@@ -8,8 +8,11 @@
 
     <!-- JS Frameworks -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script> <!-- jquery -->
+    <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.js"></script> <!-- jquery UI-->
+
     <script type="text/javascript" src="bower_components/d3/d3.js"></script> <!-- d3.js data visualization -->
     <script type="text/javascript" src="bower_components/opencpu/opencpu-0.5.js"></script> <!-- open CPU -->
+    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script> <!-- ace editor -->
     
 
     <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> <!-- bootstrap -->
@@ -18,6 +21,7 @@
 
     <!-- Angular -->
 	<script type="text/javascript" src="bower_components/angular/angular.js"></script> <!-- angular.js -->
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="app.js"></script> <!-- angular app definition -->
     <script type="text/javascript" src="controllers/mainController.js"></script> <!-- main controller -->
 
@@ -28,46 +32,79 @@
     <link rel="stylesheet" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.css"><!-- bootstrap -->
     <link rel="stylesheet" media="screen" href="bower_components/font-awesome/css/font-awesome.css"><!-- font awesome -->
     <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css"><!-- handsontable -->
+    <link rel="stylesheet" media="screen" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css"> <!-- jquery UI style sheet-->
+
+    <!-- custom CSS -->
+    <link rel="stylesheet" media="screen" href="style/explore.css">
 
     <style type="text/css">
     	#data-area{ height: 350px; width: 100%; overflow: hidden;}
-    	#vis-area {height: 350px; width: 100%;}
-    	/*#code-area {width: 100%; height: 100%; background-color: blue;}*/
+    	/*#vis-area {height: 350px; width: 100%;}*/
+    	.transcript {background-color: #006666; height: 200px; width: 100%;}
+    	.plotQuadrant {cursor: pointer; cursor: hand;}
+
+    	.sameBorder {border: 2px solid red;}
+
+    	#workspace {height: 500px; background-color: #0a8fab;}
+
+    	#editor { 
+        	/*position: absolute;*/
+        	top: 0;
+        	right: 0;
+        	bottom: 0;
+        	left: 0;
+        	height: 500px;
+    	}
+
+    	#footer {height: 50px; background-color: #E6E6E6;}
+    	#q2-editor {height: 400px; width: 500px; position: absolute; top: 50px; left: 800px;}
     </style>
 </head>
 
-<body ng-app="kuToR">
-	<div class="container">
+<body ng-app="thesisPrototype">
+	<div ng-view class="container-fluid">
 		<div class="row"> <!-- header -->
-			<div class="span12">
+			<div class="col-md-12">
 				<h4>Thesis Prototype <small>Andrea Fabris</small></h4>
 				<input type="file" name="csv" id="csvFile">
 				<button class="btn btn-default" type="button" id="readCSV">Load table</button>
+				
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#q2-editor" aria-expanded="false" aria-controls="q2-editor">
+				<span class="glyphicon glyphicon-console"></span></button>
+				<!--
+				<button class="btn btn-default" type="button" id="cmdOpener"><span class="glyphicon glyphicon-console"></span></button>
+				-->
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="span10" id="workspace"> <!-- workspace -->
-				<div class="row"> 
-					<div class="span12" id="vis-area"> 
+			<div class="col-md-9" id="workspace"> <!-- left column -->
+				<div class="row">
+					<div class="col-md-9" id="vis-area"> 
+						<!-- plots quadrants for plot preview injected here -->
 					</div>
 				</div>
 				<div class="row">
-					<div class="span12">
+					<div class="col-md-9">
 						<div class="row">
-							<div class="span12">
+							<div class="col-md-9">
 								Show data table: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br/>
 								<div id="data-features"></div>
 							</div>
 						</div>
 						<div class="row">
-							<div class="span12" id="data-area" ng-show="checked">
+							<div class="col-md-9" id="data-area" ng-show="checked">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="span2" id="code-area"> <!-- global transcritp -->
+			<div class="col-md-3" id="editor" class="transcript"> <!-- right column: transcript -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" id="footer">
+				This is a footer
 			</div>
 		</div>
 	</div>
@@ -96,15 +133,16 @@ $("#plotFromR").click(function(){
     });
 });
 
-    var hot = new Handsontable(container, {
-		//startRows: 8,
-    	//startCols: 6,
-    	rowHeaders: true,
-    	contextMenu: true,
-    	customBorders: true,
-		manualColumnMove: true,
-    	manualRowMove: true
-	});
+var hot = new Handsontable(container, {
+	//startRows: 8,
+   	//startCols: 6,
+   	rowHeaders: true,
+   	contextMenu: true,
+   	customBorders: true,
+	manualColumnMove: true,
+  	manualRowMove: true
+});
+
 
 $("#readCSV").click(function(){
 
@@ -131,37 +169,81 @@ $("#readCSV").click(function(){
 
    			$(document).ready(function(){
    				featureListener();
-   				/*
-   				$("button").click(function(event){
-   					var btnId = event.target.id;
-   					plotFromFeature(btnId);
-   				});
-				*/
-
 
 			}); // .document.ready
 		}			
 	})
-
 });
 
-    function plotFromFeature(btnId){
-    	
-    	var myFeature = "";
-    	myFeature = btnId.substring(4); // cuts btn_ prefix
-    	
-    	//console.log("feature from id: " + myFeature);
 
-    	var req = $("#vis-area").rplot("histoFromFeature",{
-    		feature : myFeature 
+
+$("#vis-area").on("click","#plotQ2",function(){
+
+	$( "#workspace" ).empty();
+
+	var req = $("#workspace").rplot("plotDensity",{
+    	feature : "calories"
+    });
+
+	req.fail(function(){
+		alert("R returned an error: " + req.responseText); 
+	});
+
+	$("body").append("<div id='q2-editor' class='collapse'></div>");
+	
+	$("#q2-editor").draggable({ cursor: "move"});
+
+	$('#q2-editor').on('shown.bs.collapse', function () {
+    	$('#workspace').css({
+    		'border':'3px solid #FF1919',
+    		'border-radius': '15px'
     	});
-    
-    	//optional
-    	req.fail(function(){
-			alert("R returned an error: " + req.responseText); 
-		});
-    }
 
+    	$('#q2-editor').css({
+    		'border' : '3px solid #FF1919',
+    		'border-radius' : '15px'
+    	});
+	});
+
+	$('#q2-editor').on('hidden.bs.collapse', function () {
+    	$('#q2-editor').css({'border':'', 'border-radius':''});
+    	$('#workspace').css({'border':'', 'border-radius':''});
+	});
+
+
+	var q2Editor = ace.edit("q2-editor");
+	q2Editor.setTheme("ace/theme/monokai");
+	q2Editor.getSession().setMode("ace/mode/r");
+	q2Editor.resize();
+	q2Editor.setShowPrintMargin(false);
+
+
+    var Rsnippet = "cereal <- MASS::UScereal; \nggplot(cereal) + aes_string(calories) + \ngeom_density(kernel='gaussian');";
+
+    q2Editor.setValue(Rsnippet);
+	
+});
+
+function plotFromFeature(btnId){
+    	
+	var myFeature = "";
+	myFeature = btnId.substring(4); // cuts btn_ prefix
+
+	var req = $("#vis-area").rplot("histoFromFeature",{
+		feature : myFeature 
+	});
+    
+	//optional
+	req.fail(function(){
+		alert("R returned an error: " + req.responseText); 
+	});
+}
+
+/*
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/r");
+*/
 </script>
 
 </html>
