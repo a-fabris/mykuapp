@@ -1,0 +1,22 @@
+<div class="jumbotron">
+	<h1>{{welcome}}</h1>
+	
+	<!-- Split button -->
+	<div class="btn-group">
+		<button type="button" class="btn btn-primary btn-lg">Select dataset</button>
+	 	
+	 	<button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="caret"></span>
+	    	<span class="sr-only">Toggle Dropdown</span>
+	  	</button>
+
+	  <ul class="dropdown-menu">
+	    <li ng-repeat="dataset in datasets" class="{{dataset.liClass}}" ng-click="setLink(dataset.id)"><a href="">{{dataset.name}}</a></li>
+	  </ul>
+	</div>
+	
+	<input ng-model="dataSelected">
+	<a href="#/explore/{{datasetId}}"><i class="fa fa-arrow-right fa-2x"></i></a>
+
+</div>
+

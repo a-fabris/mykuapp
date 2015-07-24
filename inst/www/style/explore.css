@@ -1,3 +1,18 @@
-.feature-bar {}
-.vis-area {}
-.data-grid {}
+.feature-bar { }
+
+.vis-area { height: 615px; background-color: #0a8fab;}
+
+.data-grid { height: 400px; overflow: scroll;}
+
+.data-grid-bar {
+	height: 50px;
+	overflow: hidden;
+	background-color: #363636;
+	color: #ffffff;
+	border-radius: 25px 25px 0px 0px;
+	padding-top: 10px;
+}
+
+.full-width{
+	width: 100%;
+}

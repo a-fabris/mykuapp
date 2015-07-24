@@ -1,24 +1,15 @@
-var myKuApp = angular.module('myKuApp', [
-  'ngRoute',
-  'ui.ace',
-  'kuAppControllers'
-]);
+var thesisPrototype = angular.module('thesisPrototype', ['appControllers','ngRoute','angular.filter']);
 
-myKuApp.config(['$routeProvider',
+thesisPrototype.config(function($routeProvider){
 
-	function($routeProvider,$locationProvider) {
-    	$routeProvider
-			.when("/", {
-        		templateUrl: "html/landing.html",
-        		controller: "headerController"
-      		})
-      		.when("/home", {
-        		templateUrl: "html/landing.html",
-        		controller: "headerController"
-      		}).
-      		when("/taskKnn",{
-        		templateUrl: "html/tasks/knn-task.html",
-        		controller: "TaskKnnController"
-      		})
-  
-  }]);
+	$routeProvider
+		.when('/',{
+			templateUrl : 'partials/landing.html',
+			controller : 'landingCtrl'
+		})
+		.when('/explore/:datasetId',{
+			templateUrl : 'partials/explore.html',
+			controller : 'exploreCtrl'
+		});
+
+});

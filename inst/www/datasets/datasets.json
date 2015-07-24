@@ -1,0 +1,16 @@
+[
+	{
+		"name" : "US cereal",
+		"id" : "UScereal",
+		"snippet" : "Data on several variable of different brands of cereal.",
+		"dataUrl" : "datasets/UScereal.csv",
+		"liClass" : ""
+	},
+	{
+		"name" : "Iris flower",
+		"id" : "Iris",
+		"snippet" : "The data set consists of 50 samples from each of three species of Iris (Iris setosa, Iris virginica and Iris versicolor).",
+		"dataUrl" : "datasets/iris.csv",
+		"liClass" : ""
+	}
+]

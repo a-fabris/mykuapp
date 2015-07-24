@@ -1,0 +1,51 @@
+[
+	{
+		"id" : "density",
+		"snippet" : "Kernel density plot, observe the distribution of a variable",
+		"imgUrl" : "",
+		"arity" : 1
+	},
+	{
+		"id" : "histogram",
+		"snippet" : "Histogram description",
+		"imgUrl" : "",
+		"arity" : 1
+	},
+	{
+		"id" : "dotplot",
+		"snippet" : "Dotplot description",
+		"imgUrl" : "",
+		"arity" : 1
+	},
+	{
+		"id" : "boxplot",
+		"snippet" : "Boxplot description",
+		"imgUrl" : "",
+		"arity" : 1
+	},
+	{
+		"id" : "jitter",
+		"snippet" : "",
+		"imgUrl" : "",
+		"arity" : 2
+	},
+	{
+		"id" : "line",
+		"snippet" : "",
+		"imgUrl" : "",
+		"arity" : 2
+	},
+	{
+		"id" : "points",
+		"snippet" : "",
+		"imgUrl" : "",
+		"arity" : 2
+	},
+	{
+		"id" : "",
+		"snippet" : "Select a variable to see the avialable plots",
+		"imgUrl" : "",
+		"arity" : 0
+
+	}
+]

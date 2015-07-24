@@ -14,7 +14,6 @@
     <script type="text/javascript" src="bower_components/opencpu/opencpu-0.5.js"></script> <!-- open CPU -->
     <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script> <!-- ace editor -->
     
-
     <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> <!-- bootstrap -->
     <script type="text/javascript" src="bower_components/handsontable/dist/handsontable.full.js"></script> <!-- handsontable -->
     <script type="text/javascript" src="bower_components/papaparse/papaparse.js"></script> <!-- papa parse csv to json -->
@@ -22,8 +21,9 @@
     <!-- Angular -->
 	<script type="text/javascript" src="bower_components/angular/angular.js"></script> <!-- angular.js -->
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
-    <script type="text/javascript" src="app.js"></script> <!-- angular app definition -->
-    <script type="text/javascript" src="controllers/mainController.js"></script> <!-- main controller -->
+    <script type="text/javascript" src="bower_components/angular-filter/dist/angular-filter.js"></script>
+    <script type="text/javascript" src="js/app.js"></script> <!-- angular app definition -->
+    <script type="text/javascript" src="js/controllers.js"></script> <!-- main controller -->
 
     <!-- custom JS -->
 	<script type="text/javascript" src="js/plotLogic.js"></script> <!-- main controller -->    
@@ -43,10 +43,6 @@
     	.transcript {background-color: #006666; height: 200px; width: 100%;}
     	.plotQuadrant {cursor: pointer; cursor: hand;}
 
-    	.sameBorder {border: 2px solid red;}
-
-    	#workspace {height: 500px; background-color: #0a8fab;}
-
     	#editor { 
         	/*position: absolute;*/
         	top: 0;
@@ -61,11 +57,11 @@
     </style>
 </head>
 
-<body ng-app="thesisPrototype">
-	<div ng-view class="container-fluid">
+<body ng-app="thesisPrototype" ng-controller="landingCtrl">
+	<div class="container-fluid">
 		<div class="row"> <!-- header -->
 			<div class="col-md-12">
-				<h4>Thesis Prototype <small>Andrea Fabris</small></h4>
+				<h4>{{title}} <small>{{author}}</small></h4>
 				<input type="file" name="csv" id="csvFile">
 				<button class="btn btn-default" type="button" id="readCSV">Load table</button>
 				
@@ -76,36 +72,7 @@
 				-->
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="col-md-9" id="workspace"> <!-- left column -->
-				<div class="row">
-					<div class="col-md-9" id="vis-area"> 
-						<!-- plots quadrants for plot preview injected here -->
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-9">
-								Show data table: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br/>
-								<div id="data-features"></div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-9" id="data-area" ng-show="checked">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3" id="editor" class="transcript"> <!-- right column: transcript -->
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" id="footer">
-				This is a footer
-			</div>
+		<div ng-view>
 		</div>
 	</div>
 </body>
@@ -244,6 +211,10 @@ var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/r");
 */
+
+$(document).ready(function(){
+	$("#data-grid-bar").append("<div id='data-grid' class='collapse'>DATA GRID CONTAINER</div>");
+});
 </script>
 
 </html>
