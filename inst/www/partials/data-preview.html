@@ -1,0 +1,157 @@
+<div class="main-data-preview">
+	<div class="custom-table" id="data-preview-container">
+	</div>
+	<!-- <div  ui-ace="{ onLoad : aceLoaded }" class="editor-data-preview"></div> code for angular-->
+	<div class="read-table-paramenters">
+		<div class="input-group input-group">
+  			<span class="input-group-addon" id="sizing-addon1">Separator</span>
+  			<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
+		</div>
+	</div>
+	<a href="#/explore/{{datasetId}}"><i class="fa fa-arrow-right fa-2x"></i></a>
+<div id="editor" class="editor-data-preview">
+</div>
+<button type="button" class="btn btn-default" id="refreshTable">Refresh Table</button>
+
+<script>
+	
+	/* Handsontable setup */
+	var container = document.getElementById('data-preview-container');
+	var isChecked = true; //used to select header
+
+	/* Handsontable renderers */
+  	function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+    	Handsontable.renderers.TextRenderer.apply(this, arguments);
+    	td.style.fontWeight = 'bold';
+    	td.style.color = 'green';
+    	td.style.background = '#CEC';
+  	}
+
+  		/* Handsontable renderers */
+  	function noHeaderRenderer(instance, td, row, col, prop, value, cellProperties) {
+    	Handsontable.renderers.TextRenderer.apply(this, arguments);
+    	td.style.fontWeight = '';
+    	td.style.color = '';
+    	td.style.background = '';
+  	}
+
+	var hot = new Handsontable(container, {
+		//startRows: 8,
+   		//startCols: 6,
+   		colHeaders: true,
+   		rowHeaders: function(row){
+   			var txt;
+
+   			if (row === 0) {
+   				txt = "<input type='checkbox' id='checker' ";
+   				txt += "data-toggle='tooltip' data-placement='left' title='Set as header'";
+   				txt += isChecked ? 'checked="checked"' : '';
+          		txt += ">";
+   				return txt;
+   			}
+   		},
+   		contextMenu: true,
+   		customBorders: true,
+		manualColumnMove: true,
+  		manualRowMove: true,
+  		manualColumnResize: true,
+  		manualRowResize: true,
+  		cells: function(row, col, prop){
+  			var cellProperties = {};
+
+  			if ((row === 0) && (isChecked)) {
+        		cellProperties.renderer = firstRowRenderer; // uses function directly
+      		} else if (row === 0){
+      			cellProperties.renderer = noHeaderRenderer;
+      		}
+
+  			return cellProperties;
+  		}
+	});
+
+
+  Handsontable.Dom.addEvent(container, 'mousedown', function (event) {
+    if (event.target.nodeName == 'INPUT' && event.target.id == 'checker') {
+      event.stopPropagation();
+    }
+  });
+
+  Handsontable.Dom.addEvent(container, 'mouseup', function (event) {
+    if (event.target.nodeName == 'INPUT' && event.target.id == 'checker') {
+      isChecked = !event.target.checked;
+      hot.render();
+    }
+  });
+
+
+
+	/* Ace editor setup */
+
+	var _editor = ace.edit("editor");
+    var _session = _editor.getSession();
+
+    _editor.setTheme("ace/theme/twilight");
+    _session.setMode("ace/mode/r");
+
+
+
+    $("#refreshTable").click(function(){
+
+    	var mySnippet = new ocpu.Snippet(_session.getValue());
+
+/*
+   		var req = ocpu.call("identity", {
+   		    "x" : mySnippet
+   		}, function(session){
+  		    session.getObject(function(data){
+   		        console.log("Read csv response: " + data); 
+   		    });
+   		});
+
+*/
+   		var req = ocpu.call("read.csv", {
+   		    "file" : "datasets/UScereal.csv",
+   		    "header" : "TRUE"
+   		}, function(session){
+  		    session.getObject(function(data){
+   		        console.log("Read csv response: " + data); 
+   		    });
+   		});
+
+    });
+
+
+
+		//$("#handsontrigger").click(function(){
+		$(document).ready(loadTable($("#separator-param").val()));
+
+		$("#separator-param").keyup(function(){
+
+			var newSeparator = $("#separator-param").val();
+
+			if(newSeparator != ""){
+				loadTable(newSeparator);
+			} else {
+				hot.updateSettings({data : [[]] } );
+			}
+		
+		});
+
+
+		function loadTable(delimVal){
+//			console.log(window.location.pathname);
+			$.get("datasets/UScereal.csv", function(data){		
+				Papa.parse(data, {
+		//			header: true,
+					delimiter : delimVal,
+					complete: function(results) {
+						//console.log(results.data);
+						//hot.updateSettings({colHeaders : results.data[0]});
+						hot.loadData(results.data);
+					}			
+				});
+			});			
+		}
+
+
+</script>

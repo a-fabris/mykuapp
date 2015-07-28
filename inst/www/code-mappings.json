@@ -1,0 +1,10 @@
+[
+	{
+		"cmdID"		:	"readCsv",
+		"begin"		:	"<- read.csv()",
+		"header"	:	"HEADER=",
+		"option1"	:	"",
+		"option2"	:	"",
+		"option3"	:	""
+	}
+]

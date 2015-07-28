@@ -1,0 +1,10 @@
+[
+	{
+		"event" : "delete-row",
+		"code"	: "",
+	},
+	{
+		"event" : "add-row",
+		"code" : ""
+	}
+]

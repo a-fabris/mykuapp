@@ -1,23 +1,27 @@
 <!-- explore.html -->
 <div class="row">
-	<div class="col-md-12 vis-area"> <!-- left column -->
-		<ul>
-			<li ng-repeat="plot in plots " ng-if="plot.arity == selectedItems">{{plot.id}}
-				<span>{{plot.snippet}}</span>
-			</li>
-		<ul>
+
+	<div class="col-md-6 col-md-offset-3 vis-area"> <!-- left column -->
+		<div class="panel panel-default">
+			<div class="panel-heading text-center"><strong>{{panelHeadingStr}}</strong></div>
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="plot in plots " ng-if="plot.arity == selectedItems">
+					<!--<a href="#/plot/{{plot.id}}" class="thumb"><img ng-src="{{plot.imageUrl}}"></a>-->
+					<a href="#/plot/{{dataToPlot}}/{{plot.id}}">{{plot.id}}</a>
+					{{plot.snippet}}
+				</li>
+			</ul>
+		</div>
 		<!--<div>Selected Items Length: {{selectedItems}}</div>-->
 	</div>
 	<!-- maybe general transcript column here -->
 </div>
-<div class="row">
+<div class="row footer">
 	<div class="col-md-12">
 		<div class="btn-group btn-group-justified" data-toggle="buttons">
-			<!--<div class="btn-group" role="group">-->
-  					<label class="btn btn-default active" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
-    					<input type="checkbox" autocomplete="off" value="{{key}}" >{{key}}
-  					</label>
-  			<!--</div>-->
+			<label class="btn btn-default" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
+				<input type="checkbox" autocomplete="off" value="{{key}}" ><strong class="text-uppercase">{{key}}</strong>
+			</label>
 		</div>
 	</div>
 </div>

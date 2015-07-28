@@ -1,6 +1,6 @@
 .feature-bar { }
 
-.vis-area { height: 615px; background-color: #0a8fab;}
+#vis-area { height: 615px; overflow: hidden;}
 
 .data-grid { height: 400px; overflow: scroll;}
 
@@ -14,5 +14,17 @@
 }
 
 .full-width{
+	width: 100%;
+}
+
+#data-preview-container{ }
+.custom-table {height: 500px; width: 1000px; overflow: hidden; float: left;/*margin-left: auto ; margin-right: auto ;*/}
+
+.main-data-preview{width: 1360px; height: 500px; margin: 0 auto;}
+
+.footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
 	width: 100%;
 }
