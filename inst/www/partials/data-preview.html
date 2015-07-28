@@ -14,6 +14,15 @@
 <button type="button" class="btn btn-default" id="refreshTable">Refresh Table</button>
 
 <script>
+	/* Ace editor setup */
+	var dataFile = "datasets/UScereal.csv";
+	var dataVar = "cereal.dt";
+
+	var _editor = ace.edit("editor");
+    var _session = _editor.getSession();
+
+    _editor.setTheme("ace/theme/twilight");
+    _session.setMode("ace/mode/r");
 	
 	/* Handsontable setup */
 	var container = document.getElementById('data-preview-container');
@@ -48,6 +57,8 @@
    				txt += isChecked ? 'checked="checked"' : '';
           		txt += ">";
    				return txt;
+   			} else {
+   				return row
    			}
    		},
    		contextMenu: true,
@@ -66,13 +77,24 @@
       		}
 
   			return cellProperties;
+  		},
+  		beforeRemoveCol : function(index, amount){
+  			var feature = hot.getDataAtCell (0, index);
+  			console.log("column " + feature + " was removed");
+
+  			_editor.insert( colDeleteString(dataVar, feature) + "\n");
+  		},
+  		afterCreateCol : function(index,amount){
+  			hot.setDataAtCell (0, index, "a");
+  			_editor.insert( colAddString("a") + "\n");
   		}
 	});
 
-
+	/* header event listener */
   Handsontable.Dom.addEvent(container, 'mousedown', function (event) {
     if (event.target.nodeName == 'INPUT' && event.target.id == 'checker') {
       event.stopPropagation();
+      loadTable($("#separator-param").val());
     }
   });
 
@@ -80,19 +102,9 @@
     if (event.target.nodeName == 'INPUT' && event.target.id == 'checker') {
       isChecked = !event.target.checked;
       hot.render();
+      loadTable($("#separator-param").val());
     }
   });
-
-
-
-	/* Ace editor setup */
-
-	var _editor = ace.edit("editor");
-    var _session = _editor.getSession();
-
-    _editor.setTheme("ace/theme/twilight");
-    _session.setMode("ace/mode/r");
-
 
 
     $("#refreshTable").click(function(){
@@ -120,9 +132,6 @@
 
     });
 
-
-
-		//$("#handsontrigger").click(function(){
 		$(document).ready(loadTable($("#separator-param").val()));
 
 		$("#separator-param").keyup(function(){
@@ -148,9 +157,31 @@
 						//console.log(results.data);
 						//hot.updateSettings({colHeaders : results.data[0]});
 						hot.loadData(results.data);
+
+						//_editor.gotoLine(1);
+						var readString = buildReadString(dataFile, isChecked, delimVal) + "\n";
+						_editor.insert(readString);
+
 					}			
 				});
 			});			
+		}
+
+		function buildReadString(dataFile, isChecked, separator){
+			var readString = "";
+			var checkedStr = isChecked ? "TRUE" : "FALSE"; 
+			readString += dataVar + "<- read.csv(file='"+dataFile+ "', header="+ checkedStr +", sep='"+separator +"')";
+
+			return readString;
+		}
+
+		function colDeleteString(dataVar, feature){
+
+			return dataVar + "<- " + dataVar +"[, "+ feature+":=NULL]";
+		}
+
+		function colAddString(feature){
+			return dataVar + "<- dplyr::("+dataVar+",data.frame("+ feature + "=numeric(0)))";
 		}
 
 
