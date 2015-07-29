@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-8" id="vis-area"></div>
-	<div ui-ace="{ onLoad : aceLoaded }" class="col-md-4 editor-plot-detail" id="code-area">{{dataToPlot}}</div>
+	<div class="col-md-4 editor-plot-detail" ui-ace="{ onLoad : aceLoaded }" id="code-area">{{snippet}}</div>
+	<button type="button" class="btn btn-default" ng-click="runPlot()">Run Code</button>
 </div>
 <div class="outtxt">{{outTxt}}</div> <!--outputs opencpu result from snippet -->
-<button type="button" class="btn btn-default" ng-click="runPlot()">Run Code</button>

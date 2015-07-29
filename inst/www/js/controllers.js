@@ -22,14 +22,23 @@ appControllers.controller("landingCtrl",["$scope", "$http", function($scope, $ht
 
 }]);
 
-appControllers.controller("exploreCtrl",["$scope","$routeParams","$http",
+appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localStorageService",
 
-	function($scope, $routeParams, $http){
+	function($scope, $routeParams, $http, localStorageService){
 	
 	$scope.panelHeadingStr = "Previews";
 	$scope.dataset;
 	$scope.dataToPlot = $routeParams.datasetId;
 
+	/*
+	var tableData = JSON.parse(localStorageService.get('tableData'));
+	console.log(tableData);
+	$scope.firstRow = tableData[0];
+	console.log($scope.firstRow);
+
+	$scope.dataset = tableData;
+	*/
+	
 	$http.get('datasets/' + $routeParams.datasetId + '.csv').success(function(data) {
 		
 		// Parse local CSV file
@@ -43,6 +52,7 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http",
 			}
 		});
     });
+	
 
 	$http.get('datasets/plots.json').success(function(data) {
       $scope.plots = data;
@@ -68,8 +78,8 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http",
 
 }]);
 
-appControllers.controller("dataPrevCtrl", ["$scope", "$routeParams","$http",
-	function($scope, $routeParams, $http){
+appControllers.controller("dataPrevCtrl", ["$scope", "$routeParams","$http","localStorageService",
+	function($scope, $routeParams, $http, localStorageService){
 
 
 		$scope.datasetId = $routeParams.datasetId;
@@ -79,7 +89,7 @@ appControllers.controller("dataPrevCtrl", ["$scope", "$routeParams","$http",
 
 		switch($scope.datasetId){
 			case "UScereal":
-				dataVar = "cereal.dt";
+				dataVar = $scope.dataVar = "cereal.dt";
 				fileVar = "UScereal.csv";
 				break;
 			default:
@@ -87,7 +97,7 @@ appControllers.controller("dataPrevCtrl", ["$scope", "$routeParams","$http",
 		}
 
 		var cmdString = dataVar + "<- ";
-		cmdString += "read.table(" + fileVar + ", ";
+		cmdString += "read.table(" + $scope.dataVar + ", ";
 		cmdString += "header = TRUE" + ", ";
 		cmdString += "sep = ',')";
 
@@ -124,8 +134,8 @@ appControllers.controller("plotCtrl",["$scope","$routeParams","$http",
 			alert("R returned an error: " + req.responseText); 
 		});
 
-		var tempGg = "cereal <- MASS::UScereal;\n";
-		tempGg += "ggplot(cereal) + aes_string(calories) + geom_density(kernel='gaussian');";
+		$scope.snippet = "cereal <- MASS::UScereal;\n";
+		$scope.snippet += "ggplot(cereal) + aes(calories) + geom_density(kernel='gaussian');";
 
 		$scope.aceLoaded = function(_editor){
 
@@ -133,13 +143,14 @@ appControllers.controller("plotCtrl",["$scope","$routeParams","$http",
 
 			_editor.setTheme("ace/theme/twilight");
 			_session.setMode("ace/mode/r");
-			_session.setValue(tempGg);
+			_session.setValue($scope.snippet);
+
 		};
 
 		$scope.runPlot = function(){
 		
-			var mySnippet = new ocpu.Snippet(_session.getValue());
-			console.log(mySnippet);
+			$scope.snippet = new ocpu.Snippet(_session.getValue());
+			//console.log(mySnippet);
 
    			//perform the request pt1
    			/*
@@ -155,7 +166,7 @@ appControllers.controller("plotCtrl",["$scope","$routeParams","$http",
 
 			//plot directly from rplot
 			var req = $("#vis-area").rplot("identity",{
-    			"x" : mySnippet
+    			"x" : $scope.snippet
     		});
    			     
    			 //if R returns an error, alert the error message

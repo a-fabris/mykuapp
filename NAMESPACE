@@ -18,3 +18,4 @@ export(read.csv)
 
 import(ggplot2)
 import(MASS)
+import(dplyr)

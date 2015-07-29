@@ -1,19 +1,24 @@
+<a href="#/explore/{{datasetId}}"><i class="fa fa-arrow-right fa-2x"></i></a>
 <div class="main-data-preview">
-	<div class="custom-table" id="data-preview-container">
+
+	<div class="input-group input-group">
+	  <span class="input-group-addon" id="sizing-addon1">Object name</span>
+	  <input type="text" class="form-control" value="{{dataVar}}" aria-describedby="sizing-addon1" ng-model="dataVar" id="dataVarInput">
 	</div>
+	<div class="custom-table" id="data-preview-container"></div>
 	<!-- <div  ui-ace="{ onLoad : aceLoaded }" class="editor-data-preview"></div> code for angular-->
+	<div id="editor" class="editor-data-preview"></div>
+</div>
 	<div class="read-table-paramenters">
 		<div class="input-group input-group">
   			<span class="input-group-addon" id="sizing-addon1">Separator</span>
   			<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
 		</div>
 	</div>
-	<a href="#/explore/{{datasetId}}"><i class="fa fa-arrow-right fa-2x"></i></a>
-<div id="editor" class="editor-data-preview">
-</div>
-<button type="button" class="btn btn-default" id="refreshTable">Refresh Table</button>
 
 <script>
+
+
 	/* Ace editor setup */
 	var dataFile = "datasets/UScereal.csv";
 	var dataVar = "cereal.dt";
@@ -21,33 +26,61 @@
 	var _editor = ace.edit("editor");
     var _session = _editor.getSession();
 
+    _editor.$blockScrolling = Infinity; //suppress scroll warning
+   	$( "#dataVarInput" ).focusin(function() {
+
+   		var range = _editor.findAll($("#dataVarInput").val());
+   		console.log(range);
+	});	
+
+	$("#dataVarInput").focusout(function(){
+		if (_editor.selection.rangeCount > 1){
+			_editor.forEachSelection({exec : function(){
+				_editor.clearSelection();
+			}});
+		} else {
+			_editor.clearSelection();
+		}
+	});
+
+   	$( "#dataVarInput" ).keyup(function() { 
+
+		_editor.replace($( "#dataVarInput" ).val(), _editor.selection.getRange());
+		_editor.findAll($("#dataVarInput").val());
+	});
+
     _editor.setTheme("ace/theme/twilight");
     _session.setMode("ace/mode/r");
 	
 	/* Handsontable setup */
 	var container = document.getElementById('data-preview-container');
-	var isChecked = true; //used to select header
+	var isChecked = false; //used to select header
 
 	/* Handsontable renderers */
   	function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
     	Handsontable.renderers.TextRenderer.apply(this, arguments);
-    	td.style.fontWeight = 'bold';
-    	td.style.color = 'green';
-    	td.style.background = '#CEC';
+
+    	td.style.textTransform = "uppercase";
+    	td.style.backgroundColor =  "#EEE";
+  		td.style.color = "#222";
+  		td.style.textAlign = "center";
+  		td.style.fontWeight =  "normal";
+  		td.style.whiteSpace = "nowrap";
+    	//td.style.background = '#CEC';
+    	
   	}
 
-  		/* Handsontable renderers */
+  	/* Handsontable renderers */
   	function noHeaderRenderer(instance, td, row, col, prop, value, cellProperties) {
     	Handsontable.renderers.TextRenderer.apply(this, arguments);
-    	td.style.fontWeight = '';
-    	td.style.color = '';
-    	td.style.background = '';
+    	
+    	
   	}
 
 	var hot = new Handsontable(container, {
-		//startRows: 8,
-   		//startCols: 6,
-   		colHeaders: true,
+		colHeaders : function(col){
+				return "V" + col;
+    	},
    		rowHeaders: function(row){
    			var txt;
 
@@ -71,6 +104,7 @@
   			var cellProperties = {};
 
   			if ((row === 0) && (isChecked)) {
+
         		cellProperties.renderer = firstRowRenderer; // uses function directly
       		} else if (row === 0){
       			cellProperties.renderer = noHeaderRenderer;
@@ -87,22 +121,54 @@
   		afterCreateCol : function(index,amount){
   			hot.setDataAtCell (0, index, "a");
   			_editor.insert( colAddString("a") + "\n");
+  		},
+  		afterChange : function(changes){
+  			var rowIndex;
+
+  			if (changes != null){
+  				rowIndex = changes[0][0];
+
+  				/*saving the changes to local storage*/
+  				localStorage.setItem( 'tableData', JSON.stringify({data: hot.getData()}) );
+  				console.log("Stored data: \n");
+				console.log(JSON.parse(localStorage.getItem('tableData')));
+				//TODO: function to papa-unparse json to csv, call papa-parse to refresh after sep is changed
+
+  			}
+
+  			if (rowIndex === 0) {
+  				var newVal = changes[0][3];
+  				_editor.insert( colAddString(newVal) + "\n");
+  			}
+
+
   		}
 	});
 
 	/* header event listener */
   Handsontable.Dom.addEvent(container, 'mousedown', function (event) {
     if (event.target.nodeName == 'INPUT' && event.target.id == 'checker') {
-      event.stopPropagation();
-      loadTable($("#separator-param").val());
+     	event.stopPropagation();
     }
   });
 
   Handsontable.Dom.addEvent(container, 'mouseup', function (event) {
     if (event.target.nodeName == 'INPUT' && event.target.id == 'checker') {
-      isChecked = !event.target.checked;
-      hot.render();
-      loadTable($("#separator-param").val());
+      
+      	isChecked = !event.target.checked;
+
+      	if(isChecked){
+      		hot.updateSettings({colHeaders : false});
+      	}   else {
+			hot.updateSettings({colHeaders : function(col){
+				return "V" + col;
+    		}});
+
+      	}   
+      	hot.render();
+      
+      var delimVal = $("#separator-param").val();
+      _editor.insert(buildReadString(dataFile, isChecked, delimVal) + "\n");
     }
   });
 
@@ -157,7 +223,7 @@
 						//console.log(results.data);
 						//hot.updateSettings({colHeaders : results.data[0]});
 						hot.loadData(results.data);
-
+						localStorage.setItem( 'tableData', JSON.stringify(results.data) );
 						//_editor.gotoLine(1);
 						var readString = buildReadString(dataFile, isChecked, delimVal) + "\n";
 						_editor.insert(readString);

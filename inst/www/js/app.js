@@ -1,4 +1,4 @@
-var thesisPrototype = angular.module('thesisPrototype', ['appControllers','ngRoute','angular.filter', 'ui.ace']);
+var thesisPrototype = angular.module('thesisPrototype', ['appControllers','ngRoute','angular.filter', 'ui.ace','LocalStorageModule']);
 
 thesisPrototype.config(function($routeProvider){
 
