@@ -7,10 +7,12 @@ thesisPrototype.config(function($routeProvider){
 			templateUrl : 'partials/landing.html',
 			controller : 'landingCtrl'
 		})
-		.when('/preview/:datasetId',{
+
+		/*.when('/preview/:datasetId',{
 			templateUrl : 'partials/data-preview.html',
 			controller : 'dataPrevCtrl'
-		})
+		})*/
+		
 		.when('/explore/:datasetId',{
 			templateUrl : 'partials/explore.html',
 			controller : 'exploreCtrl'
@@ -18,7 +20,7 @@ thesisPrototype.config(function($routeProvider){
 		.when('/plot/:dataToPlot/:plotId',{
 			templateUrl : 'partials/plot-details.html',
 			controller : 'plotCtrl'
-		})
+		})	
 		.otherwise({
 			templateUrl: 'partials/404.html'
 		});

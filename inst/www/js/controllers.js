@@ -30,14 +30,56 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 	$scope.dataset;
 	$scope.dataToPlot = $routeParams.datasetId;
 
-	/*
-	var tableData = JSON.parse(localStorageService.get('tableData'));
-	console.log(tableData);
-	$scope.firstRow = tableData[0];
-	console.log($scope.firstRow);
+	$scope.toggleData = false;
+	$scope.toggleIcon = "fa fa-table fa-lg";
 
-	$scope.dataset = tableData;
-	*/
+	$scope.updateToggleData = function(){
+		
+		if($scope.toggleData){
+			$scope.toggleClass = "col-md-1";
+			$scope.toggleIcon = "fa fa-table fa-lg";
+		} else {
+			$scope.toggleClass = "col-md-1 col-md-offset-11";
+			$scope.toggleIcon = "fa fa-caret-square-o-up fa-lg";
+		}
+
+		$scope.toggleData = !$scope.toggleData;
+
+	}
+
+	/*code for data-table and ace editor*/
+		var dataVar = "";
+		var fileVar = "";
+
+		switch($scope.dataToPlot){
+			case "UScereal":
+				dataVar = $scope.dataVar = "cereal.dt";
+				fileVar = "UScereal.csv";
+				break;
+			default:
+				dataVar = "a";	
+		}
+
+		var cmdString = dataVar + "<- ";
+		cmdString += "read.table(" + $scope.dataVar + ", ";
+		cmdString += "header = TRUE" + ", ";
+		cmdString += "sep = ',')";
+
+		//load code table to build R commands
+		$http.get('code-mappings.json').success(function(data) {
+      		$scope.codeMappings = data;
+    	});
+
+		$scope.aceLoaded = function(_editor){
+
+			var _session = _editor.getSession();
+
+			_editor.setTheme("ace/theme/twilight");
+			_session.setMode("ace/mode/r");
+			//_session.setValue(cmdString);
+		}
+
+	/* .data-table .ace*/
 	
 	$http.get('datasets/' + $routeParams.datasetId + '.csv').success(function(data) {
 		
@@ -61,8 +103,6 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
     $scope.selectedItems = 0;
     $scope.featureSet = new Set();
 
-    //console.log("selectedItems: " + $scope.selectedItems);
-
     //used to store the selected features and filter the available plots
     $scope.updateChecked = function(feature){
     	
@@ -83,6 +123,7 @@ appControllers.controller("dataPrevCtrl", ["$scope", "$routeParams","$http","loc
 
 
 		$scope.datasetId = $routeParams.datasetId;
+
 
 		var dataVar = "";
 		var fileVar = "";

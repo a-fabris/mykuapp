@@ -17,14 +17,23 @@
 	width: 100%;
 }
 
-#data-preview-container{ }
-.custom-table {height: 500px; width: 1000px; overflow: hidden; float: left;/*margin-left: auto ; margin-right: auto ;*/}
-
-.main-data-preview{width: 1360px; height: 500px; margin: 0 auto;}
+.custom-table {height: 400px; overflow: auto;}
 
 .footer {
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 100%;
+}
+
+.header-mimic {
+	background-color: #EEE;
+	color : #222;
+	text-align : center;
+	font-weight : normal;
+	white-space : nowrap;
+}
+
+table {
+max-width :999999%;
 }

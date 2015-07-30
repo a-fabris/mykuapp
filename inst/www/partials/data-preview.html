@@ -1,20 +1,24 @@
-<a href="#/explore/{{datasetId}}"><i class="fa fa-arrow-right fa-2x"></i></a>
-<div class="main-data-preview">
+<!--<a href="#/explore/{{datasetId}}"><i class="fa fa-arrow-right fa-2x"></i></a>-->
 
+<!-- container of data table -->
+<div class="main-data-preview" ng-show="showTable">
 	<div class="input-group input-group">
-	  <span class="input-group-addon" id="sizing-addon1">Object name</span>
+	  <span class="input-group-addon" id="sizing-addon1">Data is stored in: </span>
 	  <input type="text" class="form-control" value="{{dataVar}}" aria-describedby="sizing-addon1" ng-model="dataVar" id="dataVarInput">
 	</div>
 	<div class="custom-table" id="data-preview-container"></div>
 	<!-- <div  ui-ace="{ onLoad : aceLoaded }" class="editor-data-preview"></div> code for angular-->
 	<div id="editor" class="editor-data-preview"></div>
 </div>
-	<div class="read-table-paramenters">
-		<div class="input-group input-group">
-  			<span class="input-group-addon" id="sizing-addon1">Separator</span>
-  			<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
-		</div>
+<div class="read-table-paramenters">
+	<div class="input-group input-group">
+		<span class="input-group-addon" id="sizing-addon1">Separator</span>
+		<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
 	</div>
+</div>
+
+
+<!-- container of data table -->
 
 <script>
 
