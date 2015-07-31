@@ -28,9 +28,12 @@
     <script type="text/javascript" src="js/controllers.js"></script> <!-- main controller -->
 
     <!-- custom JS -->
-	<script type="text/javascript" src="js/plotLogic.js"></script> <!-- main controller -->    
+	<script type="text/javascript" src="js/config/globals.js"></script>
 
-    <!-- CSS -->
+    <!-- plot view -->
+    <script type="text/javascript" src="js/plotLogic.js"></script>
+    
+    <!-- CSS dependencies-->
     <link rel="stylesheet" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.css"><!-- bootstrap -->
     <link rel="stylesheet" media="screen" href="bower_components/font-awesome/css/font-awesome.css"><!-- font awesome -->
     <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css"><!-- handsontable -->
@@ -40,24 +43,6 @@
     <link rel="stylesheet" media="screen" href="style/data-preview.css">
     <link rel="stylesheet" media="screen" href="style/editors.css">
 
-    <style type="text/css">
-    	#data-area{ height: 350px; width: 100%; overflow: hidden;}
-    	/*#vis-area {height: 350px; width: 100%;}*/
-    	.transcript {background-color: #006666; height: 200px; width: 100%;}
-    	.plotQuadrant {cursor: pointer; cursor: hand;}
-
-    	#editor { 
-        	/*position: absolute;*/
-        	top: 0;
-        	right: 0;
-        	bottom: 0;
-        	left: 0;
-        	height: 500px;
-    	}
-
-    	#footer {height: 50px; background-color: #E6E6E6;}
-    	#q2-editor {height: 400px; width: 500px; position: absolute; top: 50px; left: 800px;}
-    </style>
 </head>
 
 <body ng-app="thesisPrototype" ng-controller="landingCtrl">
@@ -69,7 +54,7 @@
 			</div>
 		</div>
 
-		<div ng-view></div>
+		<div ng-view></div> <!-- views are injected here -->
 	
     </div>
 </body>

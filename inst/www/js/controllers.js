@@ -70,6 +70,7 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
       		$scope.codeMappings = data;
     	});
 
+		/*
 		$scope.aceLoaded = function(_editor){
 
 			var _session = _editor.getSession();
@@ -78,7 +79,7 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 			_session.setMode("ace/mode/r");
 			//_session.setValue(cmdString);
 		}
-
+		*/
 	/* .data-table .ace*/
 	
 	$http.get('datasets/' + $routeParams.datasetId + '.csv').success(function(data) {
