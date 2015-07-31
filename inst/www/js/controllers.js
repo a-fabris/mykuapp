@@ -30,6 +30,7 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 	$scope.dataset;
 	$scope.dataToPlot = $routeParams.datasetId;
 
+	$scope.tableRendered = false;
 	$scope.toggleData = false;
 	$scope.toggleIcon = "fa fa-table fa-lg";
 
@@ -39,11 +40,13 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 			$scope.toggleClass = "col-md-1";
 			$scope.toggleIcon = "fa fa-table fa-lg";
 		} else {
-			$scope.toggleClass = "col-md-1 col-md-offset-11";
+			$scope.toggleClass = "col-md-1";
 			$scope.toggleIcon = "fa fa-caret-square-o-up fa-lg";
 		}
 
 		$scope.toggleData = !$scope.toggleData;
+
+		$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 
 	}
 

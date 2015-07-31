@@ -1,6 +1,4 @@
-.feature-bar { }
-
-#vis-area { height: 615px; overflow: hidden;}
+.vis-area { height: 540px; overflow: hidden;}
 
 .data-grid { height: 400px; overflow: scroll;}
 
@@ -25,6 +23,7 @@
 	bottom: 0;
 	width: 100%;
 }
+
 
 .header-mimic {
 	background-color: #EEE;

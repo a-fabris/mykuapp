@@ -1,59 +1,5 @@
 <!-- explore.html -->
-<div class="row">
-	<div class="col-md-11" ng-hide="toggleData">
-		<div class="btn-group btn-group-justified" data-toggle="buttons">
-			<label class="btn btn-default header-mimic" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
-				<input type="checkbox" autocomplete="off" value="{{key}}" ><strong class="text-uppercase">{{key}}</strong>
-			</label>
-		</div>
-	</div>
-	<div ng-class="toggleClass" >
-		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#dataTable" aria-expanded="false" aria-controls="dataTable"
-		ng-model="toggleData" ng-click="updateToggleData()">
-  			<i ng-class="toggleIcon"></i>
-		</button>
-	</div>
-</div>
-
-<!-- container of data table -->
-<div class="collapse row" id="dataTable">
-	<div class="col-md-11">
-		<div class="row">
-			<div class="col-md-7" id="tableContainer">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="custom-table" id="data-preview-container"></div> <!-- hansontable container-->		
-					</div>
-				</div>
-					<div class="row">
-						<div class="col-md-12"><div clss="row">
-						<div class="col-md-8">
-						<div class="read-table-paramenters">
-							<div class="input-group input-group">
-								<span class="input-group-addon" id="sizing-addon1">Separator</span>
-								<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
-							</div>
-						</div>
-						</div>
-						<div class="col-md-8">
-						<div class="input-group input-group">
-							<span class="input-group-addon" id="sizing-addon1">Data is stored in:</span>
-							<input type="text" class="form-control" value="{{dataVar}}" aria-describedby="sizing-addon1" id="dataVarInput">
-						</div>
-						</div>
-						</div></div>
-					</div>
-			</div>
-			<!-- ace editor container -->
-			<div class="col-md-5" id="editorContainer">
-				<div id="editor" class="editor-data-preview" ui-ace="{ onLoad : aceLoaded }"></div>
-			</div>	
-		</div>
-	</div>
-</div>
-<!-- container of data table -->
-
-<div class="row">
+<div class="row vis-area">
 	<div class="col-md-6 col-md-offset-3 vis-area"> <!-- left column -->
 		<div class="panel panel-default">
 			<div class="panel-heading text-center"><strong>{{panelHeadingStr}}</strong></div>
@@ -68,7 +14,75 @@
 	</div>
 </div>
 
+<div class="bottom row">
+	<div class="col-md-11">
+		<div class="row" ng-hide="toggleData">
+			<div class="col-md-12">
+				<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btn btn-default header-mimic" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
+						<input type="checkbox" autocomplete="off" value="{{key}}" ><strong class="text-uppercase">{{key}}</strong>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<!-- container of data table -->
+		<div class="collapse" id="dataTable">
+			<div class="row" id="dataTableRow">
+				<div class="col-md-12">
+					<div class="custom-table" id="data-preview-container"></div> <!-- hansontable container-->
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<div id="editor" class="editor-data-preview" ui-ace="{ onLoad : aceLoaded }"></div>
+				</div>
+				<div class="col-md-2">
+					<div class="row">
+						<div class="col-md-12">
+							<button id="tableRenderer" ng-hide="tableRendered" ng-click="tableRendered = !tableRendered">
+								<i class="fa fa-expand fa-lg" ></i>Adjust table
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group input-group">
+								<span class="input-group-addon" id="sizing-addon1">Stored in:</span>
+								<input type="text" class="form-control" value="{{dataVar}}" aria-describedby="sizing-addon1" id="dataVarInput">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group input-group">
+								<span class="input-group-addon" id="sizing-addon1">Separator</span>
+								<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button type="button" class="btn btn-default">Run Code</button>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<!-- container of data table -->
+	</div>
+
+	<div class="col-md-1">
+		<div ng-class="toggleClass" >
+			<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#dataTable" aria-expanded="false" aria-controls="dataTable	"
+			ng-model="toggleData" ng-click="updateToggleData()">
+  				<i ng-class="toggleIcon"></i>
+			</button>
+		</div>
+	</div>
+</div>
+
 <!-- Explore view scripts -->
-<script type="text/javascript" src="../js/explore/editor.js"></script> <!-- Ace Editor controllers -->
-<script type="text/javascript" src="../js/explore/table.js"></script> <!-- Handsontable controllers -->
-<script type="text/javascript" src="../js/explore/explore.js"></script> <!-- DOM events -->
+<script type="text/javascript" src="../js/explore/editor.js"></script><!-- Ace Editor controllers -->
+<script type="text/javascript" src="../js/explore/table.js"></script><!-- Handsontable controllers -->
+<script type="text/javascript" src="../js/explore/explore.js"></script><!-- DOM events -->
