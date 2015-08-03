@@ -20,6 +20,25 @@ appControllers.controller("landingCtrl",["$scope", "$http", function($scope, $ht
     	$scope.datasetId = selection;
     };
 
+    $scope.loadGlobalData = function(datasetId){
+
+    	switch(datasetId){
+    		case "UScereal":
+				$http.get('datasets/' + datasetId + '.csv').success(function(data) {
+					// Parse local CSV file
+					Papa.parse(data, {
+						header: true,
+						complete: function(results) {
+							//Update globals
+							JSON_DATA_GLOBAL = JSON.stringify(results.data);
+							console.log("LANDING HERE: " );
+						}
+					});
+    			});
+    		break;
+    	}
+    }
+
 }]);
 
 appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localStorageService",
@@ -36,9 +55,12 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 
 	$scope.updateToggleData = function(){
 		
+		$scope.readFeatures();
+
 		if($scope.toggleData){
 			$scope.toggleClass = "col-md-1";
 			$scope.toggleIcon = "fa fa-table fa-lg";
+			
 		} else {
 			$scope.toggleClass = "col-md-1";
 			$scope.toggleIcon = "fa fa-caret-square-o-up fa-lg";
@@ -73,9 +95,9 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
       		$scope.codeMappings = data;
     	});
 	
+	// Parse local CSV file old
+	/*
 	$http.get('datasets/' + $routeParams.datasetId + '.csv').success(function(data) {
-		
-		// Parse local CSV file
 		Papa.parse(data, {
 			header: true,
 			complete: function(results) {
@@ -88,7 +110,17 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 			}
 		});
     });
-	
+	*/
+
+	$scope.readFeatures = function(){
+			$scope.dataset = JSON.parse(JSON_DATA_GLOBAL);
+			console.log("reading features: " + $scope.dataset[0]);
+
+			$scope.firstRow = $scope.dataset[0];
+	};
+
+	$scope.readFeatures();
+
 
 	$http.get('datasets/plots.json').success(function(data) {
       $scope.plots = data;

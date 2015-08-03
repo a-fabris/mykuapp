@@ -24,25 +24,13 @@
 			</div>
 		</div>
 		<div class="row">
-		<div class="col-md-4">
-			<div class="btn-group" role="group" aria-label="...">
-  				<button type="button" class="btn btn-default" ng-click="runPlot()" id="runPlot">Refresh <i class="fa fa-refresh fa-lg" ></i></button>
-  				<button type="button" class="btn btn-default" id="plotEditUndo">Undo <i class="fa fa-undo fa-lg" ></i></button>
-  				<button type="button" class="btn btn-default" id="plotEditRedo">Redo <i class="fa fa-mail-forward fa-lg" ></i></button>
+			<div class="col-md-4">
+				<div class="btn-group" role="group" aria-label="...">
+  					<button type="button" class="btn btn-default" ng-click="runPlot()" id="runPlot">Run code <i class="fa fa-terminal fa-lg" ></i></button>
+  					<button type="button" class="btn btn-default" id="plotEditUndo">Undo <i class="fa fa-undo fa-lg" ></i></button>
+  					<button type="button" class="btn btn-default" id="plotEditRedo">Redo <i class="fa fa-mail-forward fa-lg" ></i></button>
+				</div>
 			</div>
-		</div>
-
-<!--
-			<div class="col-md-1">
-				<button ng-click="runPlot()" id="runPlot"><i class="fa fa-refresh fa-lg" ></i>Refresh</button>
-			</div>
-			<div class="col-md-2">
-				<button id="plotEditUndo"><i class="fa fa-undo fa-lg" ></i>Undo</button>
-			</div>
-			<div class="col-md-2">
-				<button id="plotEditRedo"><i class="fa fa-mail-forward fa-lg" ></i>Redo</button>
-			</div>
-			-->
 		</div>		
 		<div class="row">
 			<div class="col-md-12">
@@ -66,23 +54,35 @@
 
 		<!-- container of data table -->
 		<div class="collapse" id="dataTable">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="btn-group" role="group" aria-label="...">
+						<button type="button" class="btn btn-default" id="saveTable">Apply Changes <i class="fa fa-check fa-lg" ></i></button>
+						<button type="button" class="btn btn-default" id="tableRenderer" ng-hide="tableRendered" ng-click="tableRendered = !tableRendered">
+							Adjust table <i class="fa fa-expand fa-lg" ></i>
+						</button>
+					</div>
+				</div>
+			</div>
 			<div class="row" id="dataTableRow">
 				<div class="col-md-12">
 					<div class="custom-table" id="data-preview-container"></div> <!-- hansontable container-->
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-md-4">
+					<div class="btn-group" role="group" aria-label="...">
+  						<button type="button" class="btn btn-default" id="runTable">Run code <i class="fa fa-terminal fa-lg" ></i></button>
+  						<button type="button" class="btn btn-default" id="editUndo">Undo <i class="fa fa-undo fa-lg" ></i></button>
+  						<button type="button" class="btn btn-default" id="editRedo">Redo <i class="fa fa-mail-forward fa-lg" ></i></button>
+					</div>	
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-10">
-					<div id="editor" class="editor-data-preview"></div>
+					<div id="editor" class="editor-data-preview"></div> <!-- editor container -->
 				</div>
 				<div class="col-md-2">
-					<div class="row">
-						<div class="col-md-12">
-							<button id="tableRenderer" ng-hide="tableRendered" ng-click="tableRendered = !tableRendered">
-								<i class="fa fa-expand fa-lg" ></i>Adjust table
-							</button>
-						</div>
-					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="input-group input-group">
@@ -97,11 +97,6 @@
 								<span class="input-group-addon" id="sizing-addon1">Separator</span>
 								<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<button type="button" class="btn btn-default">Run Code</button>
 						</div>
 					</div>
 				</div>				

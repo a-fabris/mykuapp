@@ -77,15 +77,12 @@ var hot = new Handsontable(container, {
  			var rowIndex;
  			if (changes != null){
  				rowIndex = changes[0][0];
- 				/*saving the changes to local storage*/
- 				localStorage.setItem( 'tableData', JSON.stringify({data: hot.getData()}) );
- 				console.log("Stored data: \n");
-			console.log(JSON.parse(localStorage.getItem('tableData')));
-			//TODO: function to papa-unparse json to csv, call papa-parse to refresh after sep is changed
  			}
- 			if (rowIndex === 0) {
+ 			
+      if (rowIndex === 0) {
  				var newVal = changes[0][3];
  				_editor.insert( colAddString(newVal) + "\n");
+
  			}
  		}
 });
@@ -111,7 +108,7 @@ Handsontable.Dom.addEvent(container, 'mouseup', function (event) {
     hot.render();
      
      var delimVal = $("#separator-param").val();
-     _editor.insert(buildReadString(dataFile, isChecked, delimVal) + "\n");
+     _editor.insert(buildReadString(DATA_FILE, isChecked, delimVal) + "\n");
    }
 });
 
@@ -162,6 +159,59 @@ Handsontable.Dom.addEvent(editor, 'click', function (event) {
   }
 
   hot.render();
+
+});
+
+Handsontable.Dom.addEvent(saveTable, 'click', function() {
+
+
+  var data = hot.getData();
+
+  console.log("saved data: " + data[0][0] + "leght: " + data[0].length);
+
+  var jsonText = "";
+
+  jsonText += "[";
+
+  //for(var i = 1; i < data.length ; i++){
+   for(var i = 1; i < 6 ; i++){ 
+    jsonText += "{";
+    for(var j = 0 ; j < data[0].length ; j++){
+
+      var key = data[0][j];
+      var value = data[i][j];
+      //console.log("key: " + key + " value: " + value);
+
+      jsonText += "\"" + key + "\":\"" +value+ "\"";
+
+      console.log("j is: " + j);
+
+      if (j+1 == 12){
+      } else {
+        jsonText += ","
+      }
+    
+    } // inner loop
+
+
+    jsonText += "},"
+    
+  }
+
+  jsonText += "]";
+
+
+
+jsonText = jsonText.replace( ",]"   , "]");
+
+jsonText = jsonText.replace( ",}"  , "}");
+
+
+
+console.log("replaced: " + jsonText);
+  
+  JSON_DATA_GLOBAL = jsonText;
+
 
 });
 

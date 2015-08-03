@@ -58,14 +58,14 @@ function loadTable(delimVal){
 function buildReadString(dataFile, isChecked, separator){
 	var readString = "";
 	var checkedStr = isChecked ? "TRUE" : "FALSE"; 
-	readString += DATA_VAR + "<- read.csv(file='"+dataFile+ "', header="+ checkedStr +", sep='"+separator +"')";
+	readString += DATA_VAR + "<- read.csv(file='"+DATA_FILE+ "', header="+ checkedStr +", sep='"+separator +"')";
 	return readString;
 }
 
 function colDeleteString(dataVar, feature){
-	return dataVar + "<- " + dataVar +"[, "+ feature+":=NULL]";
+	return DATA_VAR + "<- " + DATA_VAR +"[, "+ feature+":=NULL]";
 }
 
 function colAddString(feature){
-	return dataVar + "<- dplyr::("+dataVar+",data.frame("+ feature + "=numeric(0)))";
+	return DATA_VAR + "<- dplyr::("+DATA_VAR+",data.frame("+ feature + "=numeric(0)))";
 }
