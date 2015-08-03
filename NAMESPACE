@@ -1,7 +1,6 @@
 export(plotHistogram)
 export(histoFromFeature)
 export(histogram)
-
 export(identity)
 export(ggplot)
 export(aes_string)
@@ -9,13 +8,15 @@ export(aes)
 export(geom_density)
 export(geom_dotplot)
 export(geom_histogram)
+export(geom_boxplot)
 export(geom_smooth)
 export(geom_point)
 export(geom_line)
-
+export(geom_vline)
+export(geom_pointrange)
+export(coord_flip)
+export(theme_bw)
 export(read.csv)
-
-
 import(ggplot2)
 import(MASS)
 import(dplyr)

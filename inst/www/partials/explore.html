@@ -1,18 +1,38 @@
 <!-- explore.html -->
-<div class="row vis-area">
+<div class="row vis-area" ng-controller="plotZoomCtrl">
 	<div class="col-md-3"> <!-- left column: plot previews list -->
 		<div class="panel panel-default">
 			<div class="panel-heading text-center"><strong>{{panelHeadingStr}}</strong></div>
 			<ul class="list-group">
 				<li class="list-group-item" ng-repeat="plot in plots " ng-if="plot.arity == selectedItems">
 					<!--<a href="#/plot/{{plot.id}}" class="thumb"><img ng-src="{{plot.imageUrl}}"></a>-->
-					<a href="#/plot/{{dataToPlot}}/{{plot.id}}">{{plot.id}}</a>
+					<!--<a href="#/plot/{{dataToPlot}}/{{plot.id}}">{{plot.id}}</a>-->
+					<a href="" id="{{plot.id}}" ng-click="loadPlot(plot.id)">{{plot.id}}</a> <!-- modified to -->
 					{{plot.snippet}}
 				</li>
 			</ul>
 		</div>
 	</div>
 	<div class="col-md-9"> <!-- right column: plot zoom and code -->
+		<div class="row">
+			<div class="col-md-12"> <!-- title of chart -->
+				<h4 class="text-center">{{currentPlot}}</h4>
+			</div>
+		</div>
+		<div class="row"> <!-- here goes the chart -->
+			<div class="col-md-12" id="chart">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<button ng-click="runPlot()" id="runPlot">Test Code</button>
+			</div>
+		</div>		
+		<div class="row">
+			<div class="col-md-12">
+				<div id="editor-plot" ui-ace="{ onLoad : aceLoaded }" ng-click="handleTokens()"></div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -37,7 +57,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-10">
-					<div id="editor" class="editor-data-preview" ui-ace="{ onLoad : aceLoaded }"></div>
+					<div id="editor" class="editor-data-preview"></div>
 				</div>
 				<div class="col-md-2">
 					<div class="row">
@@ -84,7 +104,15 @@
 	</div>
 </div>
 
+<div class="popover">
+</div>
+
+
+
 <!-- Explore view scripts -->
-<script type="text/javascript" src="../js/explore/editor.js"></script><!-- Ace Editor controllers -->
-<script type="text/javascript" src="../js/explore/table.js"></script><!-- Handsontable controllers -->
-<script type="text/javascript" src="../js/explore/explore.js"></script><!-- DOM events -->
+<script type="text/javascript" src="js/explore/editor.js"></script><!-- Ace Editor controllers -->
+<script type="text/javascript" src="js/explore/table.js"></script><!-- Handsontable controllers -->
+<script type="text/javascript" src="js/explore/explore.js"></script><!-- DOM events -->
+
+<script type="text/javascript" src="js/plots/histogram.js"></script> <!-- D3.js density plot-->
+<script type="text/javascript" src="js/plots/editorPlot.js"></script> <!-- D3.js density plot-->

@@ -126,7 +126,7 @@ Handsontable.Dom.addEvent(tableRenderer, 'click', function (event) {
 
 Handsontable.Dom.addEvent(editor, 'click', function (event) {
   
-  switch(tokenCurrent){
+  switch(TOKEN_CURRENT){
     case "null":
       hot.updateSettings({cells: function(row, col, prop){
         var cellProperties = {};
@@ -137,7 +137,7 @@ Handsontable.Dom.addEvent(editor, 'click', function (event) {
       }});    
     break;
     
-    case csvTokens.header:
+    case CSV_TOKENS.header:
         hot.updateSettings({cells: function(row, col, prop){
           var cellProperties = {};
           if ((row === 0) && (isChecked)) {
@@ -147,7 +147,7 @@ Handsontable.Dom.addEvent(editor, 'click', function (event) {
         }});
     break;
 
-    case csvTokens.separator:
+    case CSV_TOKENS.separator:
         hot.updateSettings({cells: function(row, col, prop){
           var cellProperties = {};
           if ((row === 0) && (isChecked)) {

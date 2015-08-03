@@ -18,15 +18,15 @@ _editor.on('click', function(e) {
   	var token = _editor.session.getTokenAt(position.row, position.column);
 
     if(token === null){
-      tokenCurrent = "null";
+      TOKEN_CURRENT = "null";
     } else {
-      tokenCurrent = token.value;
-      console.log("current token" + tokenCurrent);
+      TOKEN_CURRENT = token.value;
+      console.log("current token" + TOKEN_CURRENT);
     }
   	
-  	switch(tokenCurrent){
+  	switch(TOKEN_CURRENT){
 
-  		case csvTokens.header:
+  		case CSV_TOKENS.header:
   			$('#editor').popover({
   				animation : true,
   				content: "<h3><code>"+ token.value +"</code>:</h3> A logical value indicating whether the file contains the names of the variables as its first line",
@@ -35,7 +35,7 @@ _editor.on('click', function(e) {
   			});
  			break;
   		
-      case csvTokens.read:
+      case CSV_TOKENS.read:
   			$('#editor').popover({
   				animation : true,
   				content: "<h3><code>"+ token.value +"</code>:</h3> Reads a file in CSV format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.",
@@ -44,7 +44,7 @@ _editor.on('click', function(e) {
   			});
  			break;
 
-      case csvTokens.separator:
+      case CSV_TOKENS.separator:
         
         $( "#separator-param" ).css("border","2px solid red");
 
@@ -56,7 +56,7 @@ _editor.on('click', function(e) {
         });
       break;
 
-      case csvTokens.dataVar:
+      case CSV_TOKENS.dataVar:
         $( "#dataVarInput" ).css("border","2px solid red");
 
         $('#editor').popover({
@@ -71,4 +71,18 @@ _editor.on('click', function(e) {
         $( "#separator-param" ).css("border",""); 
         $( "#dataVarInput" ).css("border","");
   	}
+});
+
+// Other Events
+$("#editor").focusin(function(){
+  $("#dataTableRow").css("border","3px dashed red");
+
+});
+
+$("#editor").focusout(function(){
+  tokenCurrent = "null";
+  $("#dataTableRow").css("border","");
+  $( "#separator-param" ).css("border",""); 
+  $( "#dataVarInput" ).css("border","");
+  $('#editor').popover('destroy');
 });

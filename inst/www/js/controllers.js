@@ -72,18 +72,6 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 		$http.get('code-mappings.json').success(function(data) {
       		$scope.codeMappings = data;
     	});
-
-		/*
-		$scope.aceLoaded = function(_editor){
-
-			var _session = _editor.getSession();
-
-			_editor.setTheme("ace/theme/twilight");
-			_session.setMode("ace/mode/r");
-			//_session.setValue(cmdString);
-		}
-		*/
-	/* .data-table .ace*/
 	
 	$http.get('datasets/' + $routeParams.datasetId + '.csv').success(function(data) {
 		
@@ -95,6 +83,8 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 				$scope.firstRow = results.data[0];
 				//console.log($scope.firstRow);
 				$scope.dataset = results.data;
+				//Update globals
+				JSON_DATA_GLOBAL = JSON.stringify(results.data); 
 			}
 		});
     });
@@ -117,108 +107,83 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
     	}
 
 		$scope.selectedItems = $scope.featureSet.size;
+
+		// Update globals
+		SELECTED_ITEMS = $scope.selectedItems;
+		FEATURE_SET = $scope.featureSet;
 		
     };
 
 }]);
 
-appControllers.controller("dataPrevCtrl", ["$scope", "$routeParams","$http","localStorageService",
-	function($scope, $routeParams, $http, localStorageService){
 
+appControllers.controller("plotZoomCtrl", ["$scope", function($scope){
 
-		$scope.datasetId = $routeParams.datasetId;
+	$scope.currentPlot = "No chart selected";
+	$scope.snippet = "Placeholder for R code"
 
+	var _session;
+	var _editor;
+	var plot_geometry = "";
 
-		var dataVar = "";
-		var fileVar = "";
+	$scope.aceLoaded = function(_editor){
 
-		switch($scope.datasetId){
-			case "UScereal":
-				dataVar = $scope.dataVar = "cereal.dt";
-				fileVar = "UScereal.csv";
-				break;
-			default:
-				dataVar = "a";	
+		_session = _editor.getSession();
+
+		_editor.setTheme("ace/theme/twilight");
+		_session.setMode("ace/mode/r");
+		_session.setValue($scope.snippet);
+	};
+
+	$scope.loadPlot = function(plotId){
+	
+		$scope.currentPlot = "Selected chart: " + plotId;
+
+		$scope.snippet = "a <- ggplot("+ DATA_VAR +", aes(calories))\n";
+		$scope.snippet += "a +\n";
+
+		switch(plotId){
+			case "histogram":
+				//plot_histogram();
+				plot_geometry = "geom_histogram";
+				$scope.snippet += plot_geometry +"(binwidth = " + HISTOGRAM_BINS +", fill='"+HISTOGRAM_FILL+"', color='"+CHART_BORDER+"')";
+			break;
+
+			case "density":
+				plot_geometry = "geom_density";
+				$scope.snippet += plot_geometry + "(fill='"+ CHART_FILL +"', color='" + CHART_BORDER + "')";
+			break;
+
+			case "dotplot":
+				plot_geometry = "geom_dotplot";
+				$scope.snippet += plot_geometry + "(fill='"+ CHART_FILL +"', color='" + CHART_BORDER + "')";				
+			break;
 		}
 
-		var cmdString = dataVar + "<- ";
-		cmdString += "read.table(" + $scope.dataVar + ", ";
-		cmdString += "header = TRUE" + ", ";
-		cmdString += "sep = ',')";
+		//set plot theme black/white
+		$scope.snippet += " +\ntheme_bw()"
 
-		//load code table to build R commands
-		$http.get('code-mappings.json').success(function(data) {
-      		$scope.codeMappings = data;
+		_session.setValue($scope.snippet);
+		$scope.runPlot();
+	};
+
+	$scope.runPlot = function(){
+
+		var initData = DATA_VAR + " <- MASS::UScereal;\n";
+
+		$scope.snippet = new ocpu.Snippet(initData + _session.getValue());
+		console.log($scope.snippet.code);
+		//plot directly from rplot
+		var req = $("#chart").rplot("identity",{
+    		"x" : $scope.snippet
     	});
+   		     
+   		 //if R returns an error, alert the error message
+   		 req.fail(function(){
+   		     alert("Server error: " + req.responseText);
+   		 });
+	};
 
-		$scope.aceLoaded = function(_editor){
-
-			var _session = _editor.getSession();
-
-			_editor.setTheme("ace/theme/twilight");
-			_session.setMode("ace/mode/r");
-			_session.setValue(cmdString);
-		};
 
 }]);
 
-appControllers.controller("plotCtrl",["$scope","$routeParams","$http",
-	function($scope, $routeParams, $http){
-
-		$scope.plotId = $routeParams.plotId;
-		$scope.dataId = $routeParams.dataToPlot;
-
-		var _session;
-
-
-		var req = $("#vis-area").rplot("plotDensity",{
-    		feature : "calories"
-    	});
-
-		req.fail(function(){
-			alert("R returned an error: " + req.responseText); 
-		});
-
-		$scope.snippet = "cereal <- MASS::UScereal;\n";
-		$scope.snippet += "ggplot(cereal) + aes(calories) + geom_density(kernel='gaussian');";
-
-		$scope.aceLoaded = function(_editor){
-
-			_session = _editor.getSession();
-
-			_editor.setTheme("ace/theme/twilight");
-			_session.setMode("ace/mode/r");
-			_session.setValue($scope.snippet);
-
-		};
-
-		$scope.runPlot = function(){
-		
-			$scope.snippet = new ocpu.Snippet(_session.getValue());
-			//console.log(mySnippet);
-
-   			//perform the request pt1
-   			/*
-   			 var req = ocpu.call("identity", {
-   			     "x" : mySnippet
-   			 }, function(session){
-
-   			     session.getConsole(function(outtxt){
-   			         $scope.outTxt = outtxt; 
-   			     });
-   			 });
-			*/
-
-			//plot directly from rplot
-			var req = $("#vis-area").rplot("identity",{
-    			"x" : $scope.snippet
-    		});
-   			     
-   			 //if R returns an error, alert the error message
-   			 req.fail(function(){
-   			     alert("Server error: " + req.responseText);
-   			 });
-		};
-
-		//console.log($routeParams);
-}]);

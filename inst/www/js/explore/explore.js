@@ -4,19 +4,6 @@
 
 $(document).ready(loadTable($("#separator-param").val()));
 
-$("#editor").focusin(function(){
-	$("#dataTableRow").css("border","3px dashed red");
-
-});
-
-$("#editor").focusout(function(){
-	tokenCurrent = "null";
-	$("#dataTableRow").css("border","");
-	$( "#separator-param" ).css("border",""); 
-	$( "#dataVarInput" ).css("border","");
-	$('#editor').popover('destroy');
-});
-
 $( "#dataVarInput" ).focusin(function() {
   		var range = _editor.findAll($("#dataVarInput").val());
 });	
@@ -61,7 +48,7 @@ function loadTable(delimVal){
 				hot.loadData(results.data);
 				localStorage.setItem( 'tableData', JSON.stringify(results.data) );
 				//_editor.gotoLine(1);
-				var readString = buildReadString(dataFile, isChecked, delimVal) + "\n";
+				var readString = buildReadString(DATA_FILE, isChecked, delimVal) + "\n";
 				_editor.insert(readString);
 			}			
 		});
@@ -71,7 +58,7 @@ function loadTable(delimVal){
 function buildReadString(dataFile, isChecked, separator){
 	var readString = "";
 	var checkedStr = isChecked ? "TRUE" : "FALSE"; 
-	readString += dataVar + "<- read.csv(file='"+dataFile+ "', header="+ checkedStr +", sep='"+separator +"')";
+	readString += DATA_VAR + "<- read.csv(file='"+dataFile+ "', header="+ checkedStr +", sep='"+separator +"')";
 	return readString;
 }
 
