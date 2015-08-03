@@ -7,7 +7,7 @@
 				<li class="list-group-item" ng-repeat="plot in plots " ng-if="plot.arity == selectedItems">
 					<!--<a href="#/plot/{{plot.id}}" class="thumb"><img ng-src="{{plot.imageUrl}}"></a>-->
 					<!--<a href="#/plot/{{dataToPlot}}/{{plot.id}}">{{plot.id}}</a>-->
-					<a href="" id="{{plot.id}}" ng-click="loadPlot(plot.id)">{{plot.id}}</a> <!-- modified to -->
+					<a href="" id="{{plot.id}}" ng-click="loadPlot(plot.id, plot.arity)">{{plot.id}}</a> <!-- modified to -->
 					{{plot.snippet}}
 				</li>
 			</ul>
@@ -24,9 +24,25 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-2">
-				<button ng-click="runPlot()" id="runPlot">Test Code</button>
+		<div class="col-md-4">
+			<div class="btn-group" role="group" aria-label="...">
+  				<button type="button" class="btn btn-default" ng-click="runPlot()" id="runPlot">Refresh <i class="fa fa-refresh fa-lg" ></i></button>
+  				<button type="button" class="btn btn-default" id="plotEditUndo">Undo <i class="fa fa-undo fa-lg" ></i></button>
+  				<button type="button" class="btn btn-default" id="plotEditRedo">Redo <i class="fa fa-mail-forward fa-lg" ></i></button>
 			</div>
+		</div>
+
+<!--
+			<div class="col-md-1">
+				<button ng-click="runPlot()" id="runPlot"><i class="fa fa-refresh fa-lg" ></i>Refresh</button>
+			</div>
+			<div class="col-md-2">
+				<button id="plotEditUndo"><i class="fa fa-undo fa-lg" ></i>Undo</button>
+			</div>
+			<div class="col-md-2">
+				<button id="plotEditRedo"><i class="fa fa-mail-forward fa-lg" ></i>Redo</button>
+			</div>
+			-->
 		</div>		
 		<div class="row">
 			<div class="col-md-12">

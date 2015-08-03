@@ -23,9 +23,11 @@ var PLOT_TOKENS = {
 	'aesParam'		: 'aes',
 	'dataParam' 	: 'data',
 	'fillParam'		: 'fill',
+	'colorParam'	: 'color',
 	'dataVar'		: 'cereal.dt',
 	'histogram'		: 'geom_histogram',
-	'density'		: 'geom_density'
+	'density'		: 'geom_density',
+	'themeBw'		: 'theme_bw'
 }
 
 // Plots

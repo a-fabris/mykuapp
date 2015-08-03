@@ -19,25 +19,19 @@
 	},
 	{
 		"id" : "boxplot",
-		"snippet" : "Boxplot description",
+		"snippet" : "Used to analyze median, quartiles and variability",
 		"imageUrl" : "",
-		"arity" : 1
+		"arity" : 2
 	},
 	{
 		"id" : "jitter",
-		"snippet" : "",
+		"snippet" : "Connect observations using points",
 		"imageUrl" : "",
 		"arity" : 2
 	},
 	{
 		"id" : "line",
-		"snippet" : "",
-		"imageUrl" : "",
-		"arity" : 2
-	},
-	{
-		"id" : "points",
-		"snippet" : "",
+		"snippet" : "Connect observations, ordered by x value.",
 		"imageUrl" : "",
 		"arity" : 2
 	},

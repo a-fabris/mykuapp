@@ -135,16 +135,29 @@ appControllers.controller("plotZoomCtrl", ["$scope", function($scope){
 		_session.setValue($scope.snippet);
 	};
 
-	$scope.loadPlot = function(plotId){
-	
+	$scope.loadPlot = function(plotId, plotArity){
+
+		var featureArray = Array.from(FEATURE_SET);
+		var featureX, featureY;
+
 		$scope.currentPlot = "Selected chart: " + plotId;
 
-		$scope.snippet = "a <- ggplot("+ DATA_VAR +", aes(calories))\n";
+		switch(plotArity){
+			case 1:
+				featureX = featureArray[0];
+				$scope.snippet = "a <- ggplot("+ DATA_VAR +", aes(x="+ featureX +"))\n";
+			break;
+			case 2:
+				featureX = featureArray[0];
+				featureY = featureArray[1];
+				$scope.snippet = "a <- ggplot("+ DATA_VAR +", aes(x="+ featureX +", y="+ featureY +"))\n";
+			break;
+		}
+		
 		$scope.snippet += "a +\n";
 
 		switch(plotId){
-			case "histogram":
-				//plot_histogram();
+			case "histogram":	
 				plot_geometry = "geom_histogram";
 				$scope.snippet += plot_geometry +"(binwidth = " + HISTOGRAM_BINS +", fill='"+HISTOGRAM_FILL+"', color='"+CHART_BORDER+"')";
 			break;
@@ -158,6 +171,22 @@ appControllers.controller("plotZoomCtrl", ["$scope", function($scope){
 				plot_geometry = "geom_dotplot";
 				$scope.snippet += plot_geometry + "(fill='"+ CHART_FILL +"', color='" + CHART_BORDER + "')";				
 			break;
+
+			case "jitter":
+				plot_geometry = "geom_jitter";
+				$scope.snippet += plot_geometry + "(color='" + CHART_FILL + "')";				
+			break;
+
+			case "line":
+				plot_geometry = "geom_line";
+				$scope.snippet += plot_geometry + "(color='" + CHART_FILL + "')";				
+			break;
+
+			case "boxplot":
+				plot_geometry = "geom_boxplot";
+				$scope.snippet += plot_geometry + "(fill='"+ CHART_FILL +"', color='" + CHART_BORDER + "')";				
+			break;
+
 		}
 
 		//set plot theme black/white
