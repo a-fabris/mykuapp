@@ -1,15 +1,20 @@
-<p>
-	<div class="input-group">
-	  <span class="input-group-addon" id="basic-addon1">Number of bins</span>
-	  <input type="text" id="bin-amount" readonly class="form-control" placeholder="" aria-describedby="basic-addon1">
-	</div>
-
-  	<!--<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-</p>
+<div class="input-group">
+	<span class="input-group-addon" id="basic-addon1">Bin width</span>
+	<input type="text" id="bin-amount" readonly class="form-control" placeholder="" aria-describedby="basic-addon1">
+</div>
 <div id="histo-binwidth">
 </div>
 
 <script>
+
+// Ace editor controls used for highlighting
+var _editorPlot = ace.edit("editor-plot");
+var _sessionPlot = _editorPlot.getSession();
+var range;
+var rangeBin; //used to find the value of binsize into editor
+var marker;
+var markerBin;
+
 $(function() {
   $( "#histo-binwidth" ).slider({
       value: HISTOGRAM_BINS,
@@ -18,14 +23,37 @@ $(function() {
       step: 1,
       slide: function( event, ui ) {
         $( "#bin-amount" ).val( ui.value );
+   		HISTOGRAM_BINS = ui.value;
+   		// Update the editor number live
+      	markerBin = _sessionPlot.addMarker(rangeBin,"binnumber-marker", "text", false);
+      	_editorPlot.replace( $( "#bin-amount" ).val(), rangeBin );
+      	rangeBin = _editorPlot.find($( "#bin-amount" ).val());
+      	markerBin = _sessionPlot.addMarker(rangeBin,"binnumber-marker", "text", false);
       }
     });
     
     $( "#bin-amount" ).val( $( "#histo-binwidth" ).slider( "value" ) );
+    
 });
 
-$( "#histo-binwidth" ).on( "slidechange", function( event, ui ) {
-	
+$( "#histo-binwidth" ).on("mousedown", function(){
+	//$("#editor-plot").css("border","3px dashed red");
+	range = _editorPlot.find(PLOT_TOKENS.binwidth);
+	marker = _sessionPlot.addMarker(range,"binwidth-marker", "text", false);
+
+	rangeBin = _editorPlot.find($( "#bin-amount" ).val());
+	markerBin = _sessionPlot.addMarker(rangeBin,"binnumber-marker", "text", false);
+});
+
+$( "#histo-binwidth" ).on("mouseup", function(){
+	_sessionPlot.removeMarker(marker);
+	_sessionPlot.removeMarker(markerBin);
+	_editorPlot.clearSelection();
+});
+
+$( "#histo-binwidth" ).on( "slidestop", function( event, ui ) {
+	// Calls the click event on the chart list in the DOM, which triggers angular controller
+	$( "#histogram" ).click();
 } );
 
 </script>

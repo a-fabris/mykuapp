@@ -38,7 +38,6 @@ appControllers.controller("landingCtrl",["$scope", "$http", function($scope, $ht
     		break;
     	}
     }
-
 }]);
 
 appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localStorageService",
@@ -230,10 +229,10 @@ appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", functi
 		$scope.snippet += " +\ntheme_bw()";
 		_session.setValue($scope.snippet);
 
-		// Load chart widget
+		// Load chart widget html
 		$http.get('partials/widgets/'+plotId+'-widget.html').success(function(data) {
     			$scope.widgetHtml = data;
-    			console.log("Prepared widget html: " + $scope.widgetHtml);
+    			//console.log("Prepared widget html: " + $scope.widgetHtml);
   				$compile($("#plotWidget").html($scope.widgetHtml).contents())($scope);
   		});
 
@@ -263,10 +262,6 @@ appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", functi
    		 });
 
 	};
-
-
-
-
 }]);
 
 

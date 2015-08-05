@@ -57,19 +57,8 @@ _editorPlot.on('mousemove', function(e) {
   	
   	switch(TOKEN_CURRENT){
 
-  		case PLOT_TOKENS.cmdPlot:
-        
-        console.log("HIT GGPLOT");
-        /*
-  			$('#editor-plot').popover({
-  				animation : true,
-  				content: "<h3><code>"+ token.value +"</code>:</h3> Create a new ggplot plot. It is typically used to construct a plot incrementally, using the + operator to add layers to the existing ggplot object.",
-  				html: true,
-  				placement: "top"
-  			});
-        */
-        
-        popoverText = "<h3><code>"+ token.value +"</code>:</h3> Create a new ggplot plot. It is typically used to construct a plot incrementally, using the <b>+</b> operator to add layers to the existing ggplot object."
+  		case PLOT_TOKENS.cmdPlot:        
+        popoverText = "<h3><code>"+ token.value +"</code>:</h3> Create a new ggplot plot. It is typically used to construct a plot incrementally, using the <b>+</b> operator to add layers to the existing ggplot object.";
         $( ".popover" ).html( popoverText );
         var theHeight = $('.popover').height();
         var theWidth = $('.popover').width();
@@ -78,7 +67,7 @@ _editorPlot.on('mousemove', function(e) {
  			break;
       
       case PLOT_TOKENS.plus:
-        popoverText = "<h3><code>"+ token.value +"</code>:</h3> The plus operator is used to add layers to the existing ggplot object"
+        popoverText = "<h3><code>"+ token.value +"</code>:</h3> The plus operator is used to add layers to the existing ggplot object";
         $( ".popover" ).html( popoverText );
         var theHeight = $('.popover').height();
         var theWidth = $('.popover').width();
@@ -87,7 +76,7 @@ _editorPlot.on('mousemove', function(e) {
       break;
 
       case PLOT_TOKENS.aesParam:
-        popoverText = "<h3><code>"+ token.value +"</code>:</h3> Generate aesthetic mappings that describe how variables in the data are mapped to visual properties (aesthetics) of geoms <br> Example: <br> <code>aes(x = calories, y = sugars)</code>"
+        popoverText = "<h3><code>"+ token.value +"</code>:</h3> Generate aesthetic mappings that describe how variables in the data are mapped to visual properties (aesthetics) of geoms <br> Example: <br> <code>aes(x = calories, y = sugars)</code>";
         $( ".popover" ).html( popoverText );
         var theHeight = $('.popover').height();
         var theWidth = $('.popover').width();
@@ -143,6 +132,14 @@ _editorPlot.on('mousemove', function(e) {
       case PLOT_TOKENS.themeBw:
         popoverText = "<h3><code>"+ token.value +"</code>:</h3> A theme with white background and black gridlines."
         $( ".popover" ).html( popoverText );
+        var theHeight = $('.popover').height();
+        var theWidth = $('.popover').width();
+        $('.popover').css('top', (POS_Y-(theHeight)-35) +'px');
+        $('.popover').css('left', (POS_X-130) +'px');
+      break;
+
+      case PLOT_TOKENS.binwidth:
+        popoverText = "<h3><code>"+ token.value +"</code>:</h3> Sets the size of the range. The histogram counts how many occurrences fit within the range.";
         var theHeight = $('.popover').height();
         var theWidth = $('.popover').width();
         $('.popover').css('top', (POS_Y-(theHeight)-35) +'px');

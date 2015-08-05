@@ -1,0 +1,17 @@
+/*.ace_selected_word{
+	background-color: #FFFF00;
+	color: #000000;
+	position: absolute;
+}*/
+
+.binwidth-marker{
+	background-color: #FFFF00;
+	color: #000000;
+	position: absolute;
+	opacity: 0.5;
+}
+
+.binnumber-marker{
+	background: transparent;
+	position: absolute;
+}

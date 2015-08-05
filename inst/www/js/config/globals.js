@@ -27,7 +27,8 @@ var PLOT_TOKENS = {
 	'dataVar'		: 'cereal.dt',
 	'histogram'		: 'geom_histogram',
 	'density'		: 'geom_density',
-	'themeBw'		: 'theme_bw'
+	'themeBw'		: 'theme_bw',
+	'binwidth'		: 'binwidth'
 }
 
 // Plots
@@ -39,7 +40,7 @@ var CHART_HEIGHT = 350;
 var CHART_WIDTH = 700;
 
 var HISTOGRAM_BINS = 10;
-var HISTOGRAM_FILL = "#1975D1";
+var HISTOGRAM_FILL = "steelblue";
 var CHART_FILL = "#1975D1";
 var CHART_BORDER = "black";
 
