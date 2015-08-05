@@ -77,6 +77,40 @@ var hot = new Handsontable(container, {
  			var rowIndex;
  			if (changes != null){
  				rowIndex = changes[0][0];
+
+        var data = hot.getData();
+        var jsonText = "";
+      
+        jsonText += "[";
+      
+        //for(var i = 1; i < 4 ; i++){
+        for(var i = 1; i < data.length ; i++){
+         //for(var i = 1; i < 6 ; i++){ 
+          jsonText += "{";
+          for(var j = 0 ; j < data[0].length ; j++){
+      
+            var key = data[0][j];
+            var value = data[i][j];
+            //console.log("key: " + key + " value: " + value);
+      
+            jsonText += "\"" + key + "\":\"" +value+ "\"";
+      
+            if (j+1 == data[0].length){
+            } else {
+              jsonText += ","
+            }
+          } // inner loop
+          jsonText += "},"
+        }
+      
+        jsonText += "]";
+      
+        jsonText = jsonText.replace( ",]"   , "]");
+        jsonText = jsonText.replace( ",}"  , "}");
+      
+        JSON_DATA_GLOBAL = jsonText;
+
+
  			}
  			
       if (rowIndex === 0) {
@@ -162,19 +196,17 @@ Handsontable.Dom.addEvent(editor, 'click', function (event) {
 
 });
 
+//Update global data after table is editetd
+/*
 Handsontable.Dom.addEvent(saveTable, 'click', function() {
 
-
   var data = hot.getData();
-
-  console.log("saved data: " + data[0][0] + "leght: " + data[0].length);
-
   var jsonText = "";
 
   jsonText += "[";
 
-  //for(var i = 1; i < data.length ; i++){
-   for(var i = 1; i < 6 ; i++){ 
+  for(var i = 1; i < data.length ; i++){
+   //for(var i = 1; i < 6 ; i++){ 
     jsonText += "{";
     for(var j = 0 ; j < data[0].length ; j++){
 
@@ -184,34 +216,21 @@ Handsontable.Dom.addEvent(saveTable, 'click', function() {
 
       jsonText += "\"" + key + "\":\"" +value+ "\"";
 
-      console.log("j is: " + j);
-
-      if (j+1 == 12){
+      if (j+1 == data[0].length){
       } else {
         jsonText += ","
       }
-    
     } // inner loop
-
-
     jsonText += "},"
-    
   }
 
   jsonText += "]";
 
+  jsonText = jsonText.replace( ",]"   , "]");
+  jsonText = jsonText.replace( ",}"  , "}");
 
-
-jsonText = jsonText.replace( ",]"   , "]");
-
-jsonText = jsonText.replace( ",}"  , "}");
-
-
-
-console.log("replaced: " + jsonText);
-  
   JSON_DATA_GLOBAL = jsonText;
 
-
 });
+*/
 

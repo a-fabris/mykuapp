@@ -45,7 +45,7 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 
 	function($scope, $routeParams, $http, localStorageService){
 	
-	$scope.panelHeadingStr = "Previews";
+	$scope.panelHeadingStr = "Explore using: ";
 	$scope.dataset;
 	$scope.dataToPlot = $routeParams.datasetId;
 
@@ -149,9 +149,12 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 }]);
 
 
-appControllers.controller("plotZoomCtrl", ["$scope", function($scope){
+appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", function($scope, $http, $compile){
 
+	console.log("Inside zoom ctrl");
 	$scope.currentPlot = "No chart selected";
+	$scope.plotId = "";
+	$scope.widgetHtml = "";
 	$scope.snippet = "Placeholder for R code"
 
 	var _session;
@@ -172,8 +175,10 @@ appControllers.controller("plotZoomCtrl", ["$scope", function($scope){
 		var featureArray = Array.from(FEATURE_SET);
 		var featureX, featureY;
 
-		$scope.currentPlot = "Selected chart: " + plotId;
+		$scope.plotId = plotId;
+		$scope.currentPlot = plotId.toUpperCase();
 
+		// updates the snippet based on the number of variables selected
 		switch(plotArity){
 			case 1:
 				featureX = featureArray[0];
@@ -222,29 +227,78 @@ appControllers.controller("plotZoomCtrl", ["$scope", function($scope){
 		}
 
 		//set plot theme black/white
-		$scope.snippet += " +\ntheme_bw()"
-
+		$scope.snippet += " +\ntheme_bw()";
 		_session.setValue($scope.snippet);
+
+		// Load chart widget
+		$http.get('partials/widgets/'+plotId+'-widget.html').success(function(data) {
+    			$scope.widgetHtml = data;
+    			console.log("Prepared widget html: " + $scope.widgetHtml);
+  				$compile($("#plotWidget").html($scope.widgetHtml).contents())($scope);
+  		});
+
+  		$( "#plotWidget" ).dialog( "open" );
+
 		$scope.runPlot();
 	};
 
 	$scope.runPlot = function(){
-
-		var initData = DATA_VAR + " <- MASS::UScereal;\n";
-
-		$scope.snippet = new ocpu.Snippet(initData + _session.getValue());
-		console.log($scope.snippet.code);
+		
 		//plot directly from rplot
+		
+		var initData = DATA_VAR + " <- MASS::UScereal;\n";
+		
+		$scope.snippet = new ocpu.Snippet(initData + _session.getValue());
+
+		//plot directly from rplot
+
 		var req = $("#chart").rplot("identity",{
     		"x" : $scope.snippet
     	});
    		     
    		 //if R returns an error, alert the error message
    		 req.fail(function(){
+   		 	//$("#chart").text(req.responseText);
    		     alert("Server error: " + req.responseText);
    		 });
+
 	};
+
+
 
 
 }]);
 
+
+/* AREA OF TEMPORARY TEST CODE*/
+/*
+
+	
+		var req = ocpu.call("runPlot", {jsonString: jsonData }, function(session){
+			    
+			    session.getConsole(function(outtxt){
+        			$("#chart").text(outtxt);
+   				 });
+		});
+
+console.log("escaped" + jsonEscaped); 
+		var initJsonData = "cereal.dt <- jsonlite::fromJSON('" + jsonEscaped + "');\n";
+
+
+		var jsonEscaped = "";
+		var jsonData = "";
+		jsonData += JSON_DATA_GLOBAL;
+		jsonEscaped += jsonData.replace(/"/g, "\\\"");
+		jsonEscaped = jsonEscaped.replace(/\n/g, "");
+
+var jsonEscaped = jsonEscaped.replace(/\\n/g, "\\n")
+                                      .replace(/\\'/g, "\\'")
+                                      .replace(/\\"/g, '\\"')
+                                      .replace(/\\&/g, "\\&")
+                                      .replace(/\\r/g, "\\r")
+                                      .replace(/\\t/g, "\\t")
+                                      .replace(/\\b/g, "\\b")
+                                      .replace(/\\f/g, "\\f")
+                                      .replace(/-/g, "");
+
+*/

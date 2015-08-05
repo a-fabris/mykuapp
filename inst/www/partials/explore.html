@@ -16,9 +16,16 @@
 	<div class="col-md-9"> <!-- right column: plot zoom and code -->
 		<div class="row">
 			<div class="col-md-12"> <!-- title of chart -->
-				<h4 class="text-center">{{currentPlot}}</h4>
+				<h4 class="text-center">CURRENT CHART: {{currentPlot}}</h4>
 			</div>
 		</div>
+
+		<!-- CHART WIDGET -->
+		<div id="plotWidget" title="{{currentPlot}} CONTROLS"> <!-- this is the widget used to interact with charts -->
+  			<p>TEMP WIDGET</p>
+		</div>
+		<!-- /CHART WIDGET -->
+
 		<div class="row"> <!-- here goes the chart -->
 			<div class="col-md-12" id="chart">
 			</div>
@@ -45,8 +52,8 @@
 		<div class="row" ng-hide="toggleData">
 			<div class="col-md-12">
 				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btn btn-default header-mimic" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
-						<input type="checkbox" autocomplete="off" value="{{key}}" ><strong class="text-uppercase">{{key}}</strong>
+					<label class="btn btn-primary header-mimic" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
+						<input type="checkbox" autocomplete="off" value="{{key}}"><strong class="text-uppercase">{{key}}</strong>
 					</label>
 				</div>
 			</div>
@@ -57,7 +64,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="btn-group" role="group" aria-label="...">
-						<button type="button" class="btn btn-default" id="saveTable">Apply Changes <i class="fa fa-check fa-lg" ></i></button>
+						<!--<button type="button" class="btn btn-default" id="saveTable">Apply Changes <i class="fa fa-check fa-lg" ></i></button>-->
 						<button type="button" class="btn btn-default" id="tableRenderer" ng-hide="tableRendered" ng-click="tableRendered = !tableRendered">
 							Adjust table <i class="fa fa-expand fa-lg" ></i>
 						</button>
@@ -115,15 +122,12 @@
 	</div>
 </div>
 
-<div class="popover">
+<div class="popover"> <!-- this is used when user clicks on code tokens-->
 </div>
-
 
 
 <!-- Explore view scripts -->
 <script type="text/javascript" src="js/explore/editor.js"></script><!-- Ace Editor controllers -->
 <script type="text/javascript" src="js/explore/table.js"></script><!-- Handsontable controllers -->
 <script type="text/javascript" src="js/explore/explore.js"></script><!-- DOM events -->
-
-<script type="text/javascript" src="js/plots/histogram.js"></script> <!-- D3.js density plot-->
-<script type="text/javascript" src="js/plots/editorPlot.js"></script> <!-- D3.js density plot-->
+<script type="text/javascript" src="js/explore/widgets.js"></script><!-- chart widgets handlers -->

@@ -31,6 +31,7 @@ var PLOT_TOKENS = {
 }
 
 // Plots
+var CURRENT_PLOT = "";
 var SELECTED_ITEMS = 0;
 var FEATURE_SET = new Set();
 

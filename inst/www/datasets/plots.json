@@ -1,24 +1,24 @@
 [
 	{
 		"id" : "density",
-		"snippet" : "Kernel density plot, observe the distribution of a variable",
+		"snippet" : "Observe the probability density function",
 		"imageUrl" : "",
 		"arity" : 1
 	},
 	{
 		"id" : "histogram",
-		"snippet" : "Histogram description",
-		"imageUrl" : "",
-		"arity" : 1
-	},
-	{
-		"id" : "dotplot",
-		"snippet" : "Dotplot description",
+		"snippet" : "Histograms are used to see the distribution of one variable. The height of the bars represent the count of cases in each group",
 		"imageUrl" : "",
 		"arity" : 1
 	},
 	{
 		"id" : "boxplot",
+		"snippet" : "Used to analyze median, quartiles and variability",
+		"imageUrl" : "",
+		"arity" : 2
+	},
+	{
+		"id" : "smooth",
 		"snippet" : "Used to analyze median, quartiles and variability",
 		"imageUrl" : "",
 		"arity" : 2

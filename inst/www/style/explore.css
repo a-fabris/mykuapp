@@ -27,11 +27,17 @@
 
 .header-mimic {
 	background-color: #EEE;
+	border-color: black;
 	color : #222;
 	text-align : center;
 	font-weight : normal;
 	white-space : nowrap;
 }
+
+input[type=checkbox]:checked + .header-mimic {
+  background-color: #1975D1;
+}
+
 
 table {
 	max-width :999999%;

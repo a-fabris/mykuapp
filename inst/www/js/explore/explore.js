@@ -4,6 +4,20 @@
 
 $(document).ready(loadTable($("#separator-param").val()));
 
+$(function() {
+	$( "#plotWidget" ).dialog({
+		autoOpen: false,
+      	show: {
+        	effect: "blind",
+        	duration: 800
+      	},
+      	hide: {
+        	effect: "blind",
+        	duration: 800
+      	}
+    });
+});
+
 $( "#dataVarInput" ).focusin(function() {
   		var range = _editor.findAll($("#dataVarInput").val());
 });	

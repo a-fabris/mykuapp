@@ -1,0 +1,31 @@
+<p>
+	<div class="input-group">
+	  <span class="input-group-addon" id="basic-addon1">Number of bins</span>
+	  <input type="text" id="bin-amount" readonly class="form-control" placeholder="" aria-describedby="basic-addon1">
+	</div>
+
+  	<!--<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+</p>
+<div id="histo-binwidth">
+</div>
+
+<script>
+$(function() {
+  $( "#histo-binwidth" ).slider({
+      value: HISTOGRAM_BINS,
+      min: 1,
+      max: 50,
+      step: 1,
+      slide: function( event, ui ) {
+        $( "#bin-amount" ).val( ui.value );
+      }
+    });
+    
+    $( "#bin-amount" ).val( $( "#histo-binwidth" ).slider( "value" ) );
+});
+
+$( "#histo-binwidth" ).on( "slidechange", function( event, ui ) {
+	
+} );
+
+</script>

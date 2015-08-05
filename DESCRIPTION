@@ -10,4 +10,6 @@ License: Apache2
 LazyData: true
 Imports:
 	ggplot2,
-	MASS
+	MASS,
+	dplyr,
+	jsonlite
