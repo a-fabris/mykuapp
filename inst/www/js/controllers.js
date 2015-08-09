@@ -174,6 +174,18 @@ appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", functi
 		var featureArray = Array.from(FEATURE_SET);
 		var featureX, featureY;
 
+		// Handle the css for active plot menu entry, to fix.
+		if( CURRENT_PLOT != ""){ // Reset CSS
+			$("#" + CURRENT_PLOT).css("background-color","");
+			$("#" + CURRENT_PLOT).css("color","");
+		} 
+
+		CURRENT_PLOT = plotId;
+		$("#" + plotId).css("background-color","steelblue");
+		$("#" + plotId).css("color","#ffffff");
+		
+		
+
 		$scope.plotId = plotId;
 		$scope.currentPlot = plotId.toUpperCase();
 

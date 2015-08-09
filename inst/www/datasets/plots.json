@@ -1,38 +1,42 @@
 [
 	{
 		"id" : "density",
+		"name" : "Density",
 		"snippet" : "Observe the probability density function",
-		"imageUrl" : "",
+		"imageUrl" : "img/plots/density.png",
+		"imageAlt" : "Density example image",
 		"arity" : 1
 	},
 	{
 		"id" : "histogram",
+		"name" : "Histogram",
 		"snippet" : "Histograms are used to see the distribution of one variable. The height of the bars represent the count of cases in each group",
-		"imageUrl" : "",
+		"imageUrl" : "img/plots/histogram.png",
+		"imageAlt" : "Histogram example image",
 		"arity" : 1
 	},
 	{
 		"id" : "boxplot",
+		"name" : "Boxplot",
 		"snippet" : "Used to analyze median, quartiles and variability",
-		"imageUrl" : "",
-		"arity" : 2
-	},
-	{
-		"id" : "smooth",
-		"snippet" : "Used to analyze median, quartiles and variability",
-		"imageUrl" : "",
+		"imageUrl" : "img/plots/boxplot.png",
+		"imageAlt" : "Boxplot example image",
 		"arity" : 2
 	},
 	{
 		"id" : "jitter",
+		"name" : "Jitter",
 		"snippet" : "Connect observations using points",
-		"imageUrl" : "",
+		"imageUrl" : "img/plots/jitter.png",
+		"imageAlt" : "Jitter example image",
 		"arity" : 2
 	},
 	{
 		"id" : "line",
+		"name" : "Line",
 		"snippet" : "Connect observations, ordered by x value.",
-		"imageUrl" : "",
+		"imageUrl" : "img/plots/line.png",
+		"imageAlt" : "Line example image",
 		"arity" : 2
 	},
 	{

@@ -43,22 +43,6 @@
     position: absolute;
     pointer-events: none;
 }
-/*
-.popover:after {
-    border-color: rgba(255, 255, 255, 0);
-    border-right-color: #ffffff;
-    border-width: 10px;
-    top: 50%;
-    margin-top: 14px;
-}
-.popover:before {
-    border-color: rgba(201, 201, 201, 0);
-    border-right-color: #c9c9c9;
-    border-width: 11px;
-    top: 50%;
-    margin-top: 15px;
-}
-*/
 
 .popover:after {
 	width: 0; 

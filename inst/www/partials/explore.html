@@ -1,16 +1,19 @@
 <!-- explore.html -->
 <div class="row vis-area" ng-controller="plotZoomCtrl">
-	<div class="col-md-3"> <!-- left column: plot previews list -->
-		<div class="panel panel-default">
+	<div class="col-md-3 plot-preview-thumb"> <!-- left column: plot previews list -->
+		<div class="panel panel-primary">
 			<div class="panel-heading text-center"><strong>{{panelHeadingStr}}</strong></div>
-			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="plot in plots " ng-if="plot.arity == selectedItems">
-					<!--<a href="#/plot/{{plot.id}}" class="thumb"><img ng-src="{{plot.imageUrl}}"></a>-->
-					<!--<a href="#/plot/{{dataToPlot}}/{{plot.id}}">{{plot.id}}</a>-->
-					<a href="" id="{{plot.id}}" ng-click="loadPlot(plot.id, plot.arity)">{{plot.id}}</a> <!-- modified to -->
-					{{plot.snippet}}
-				</li>
-			</ul>
+				<div class="list-group">
+				    <a href="" id="{{plot.id}}" class="list-group-item" ng-repeat="plot in plots " ng-if="plot.arity == selectedItems" ng-click="loadPlot(plot.id, plot.arity)">
+				    	<div class="thumbnail">
+				    		<div class="caption">
+				    			<h3>{{plot.name}}</h3>
+				    			{{plot.snippet}}
+				    		</div>
+				    		<img ng-src="{{plot.imageUrl}}" alt="{{plot.imageAlt}}"/>
+				    	</div>
+				    </a>
+				</div>
 		</div>
 	</div>
 	<div class="col-md-9"> <!-- right column: plot zoom and code -->
