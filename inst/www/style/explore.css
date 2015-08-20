@@ -1,4 +1,4 @@
-.vis-area { height: 540px; overflow: scroll;}
+.vis-area { height: 540px;}
 
 .data-grid { height: 400px; overflow: scroll;}
 
@@ -15,7 +15,7 @@
 	width: 100%;
 }
 
-.custom-table {height: 400px; overflow: auto;}
+.custom-table {height: 450px; margin-bottom: 1%; overflow: auto;}
 
 .footer {
 	position: absolute;
@@ -44,7 +44,15 @@ table {
 }
 
 .plot-preview-thumb {
+	margin-top: 1%;
 	height: 500px;
-	overflow: scroll;
+	overflow: auto;
+}
+
+.animate-hide {
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  line-height: 20px;
+  opacity: 1;
 }
 

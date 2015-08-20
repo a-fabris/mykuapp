@@ -1,3 +1,7 @@
-.editor-plot-detail {height: 300px;}
+.editor-data-preview{height: 150px; width: 100%; overflow: auto;}
 
-.editor-data-preview{height: 150px; width: 100%; overflow: hidden;}
+#editor-plot{
+	height: 150px;
+	width: 100%;
+	overflow: auto;
+}

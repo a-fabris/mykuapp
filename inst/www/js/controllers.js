@@ -31,7 +31,6 @@ appControllers.controller("landingCtrl",["$scope", "$http", function($scope, $ht
 						complete: function(results) {
 							//Update globals
 							JSON_DATA_GLOBAL = JSON.stringify(results.data);
-							console.log("LANDING HERE: " );
 						}
 					});
     			});
@@ -49,8 +48,8 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 	$scope.dataToPlot = $routeParams.datasetId;
 
 	$scope.tableRendered = false;
-	$scope.toggleData = false;
-	$scope.toggleIcon = "fa fa-table fa-lg";
+	$scope.toggleData = true;
+	$scope.toggleIcon = "fa fa-caret-square-o-up fa-lg";
 
 	$scope.updateToggleData = function(){
 		
@@ -66,8 +65,6 @@ appControllers.controller("exploreCtrl",["$scope","$routeParams","$http","localS
 		}
 
 		$scope.toggleData = !$scope.toggleData;
-
-		$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 
 	}
 
@@ -154,7 +151,8 @@ appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", functi
 	$scope.currentPlot = "No chart selected";
 	$scope.plotId = "";
 	$scope.widgetHtml = "";
-	$scope.snippet = "Placeholder for R code"
+	$scope.snippet = "Placeholder for R code";
+	$scope.titleWidget = "";
 
 	var _session;
 	var _editor;
@@ -241,6 +239,7 @@ appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", functi
 		$scope.snippet += " +\ntheme_bw()";
 		_session.setValue($scope.snippet);
 
+
 		// Load chart widget html
 		$http.get('partials/widgets/'+plotId+'-widget.html').success(function(data) {
     			$scope.widgetHtml = data;
@@ -248,7 +247,12 @@ appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", functi
   				$compile($("#plotWidget").html($scope.widgetHtml).contents())($scope);
   		});
 
-  		$( "#plotWidget" ).dialog( "open" );
+  		//Only if Histogram
+
+  		if(plotId == "histogram"){
+  			$( "#plotWidget" ).dialog( "open" );	
+  		}
+  		
 
 		$scope.runPlot();
 	};
@@ -275,37 +279,3 @@ appControllers.controller("plotZoomCtrl", ["$scope", "$http", "$compile", functi
 
 	};
 }]);
-
-
-/* AREA OF TEMPORARY TEST CODE*/
-/*
-
-	
-		var req = ocpu.call("runPlot", {jsonString: jsonData }, function(session){
-			    
-			    session.getConsole(function(outtxt){
-        			$("#chart").text(outtxt);
-   				 });
-		});
-
-console.log("escaped" + jsonEscaped); 
-		var initJsonData = "cereal.dt <- jsonlite::fromJSON('" + jsonEscaped + "');\n";
-
-
-		var jsonEscaped = "";
-		var jsonData = "";
-		jsonData += JSON_DATA_GLOBAL;
-		jsonEscaped += jsonData.replace(/"/g, "\\\"");
-		jsonEscaped = jsonEscaped.replace(/\n/g, "");
-
-var jsonEscaped = jsonEscaped.replace(/\\n/g, "\\n")
-                                      .replace(/\\'/g, "\\'")
-                                      .replace(/\\"/g, '\\"')
-                                      .replace(/\\&/g, "\\&")
-                                      .replace(/\\r/g, "\\r")
-                                      .replace(/\\t/g, "\\t")
-                                      .replace(/\\b/g, "\\b")
-                                      .replace(/\\f/g, "\\f")
-                                      .replace(/-/g, "");
-
-*/

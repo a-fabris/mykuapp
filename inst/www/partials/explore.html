@@ -1,5 +1,73 @@
 <!-- explore.html -->
-<div class="row vis-area" ng-controller="plotZoomCtrl">
+<div class="row">
+	<div class="col-md-11">
+		<div class="row" ng-hide="toggleData">
+			<div class="col-md-12">
+				<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btn btn-primary header-mimic" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
+						<input type="checkbox" autocomplete="off" value="{{key}}"><strong class="text-uppercase">{{key}}</strong>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<!-- container of data table -->
+			<div id="dataTable" ng-show="toggleData">
+			<div class="row" id="dataTableRow">
+				<div class="col-md-12">
+					<div class="custom-table" id="data-preview-container"></div> <!-- hansontable container-->
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group input-group">
+								<span class="input-group-addon" id="sizing-addon1">Stored in:</span>
+								<input type="text" class="form-control" value="{{dataVar}}" aria-describedby="sizing-addon1" id="dataVarInput">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input-group input-group">
+								<span class="input-group-addon" id="sizing-addon1">Separator</span>
+								<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=";">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="btn-group" role="group" aria-label="...">
+  								<button type="button" class="btn btn-default" id="runTable">Run code <i class="fa fa-terminal fa-lg"></i></button>
+  								<button type="button" class="btn btn-default" id="editUndo">Undo <i class="fa fa-undo fa-lg"></i></button>
+  								<button type="button" class="btn btn-default" id="editRedo">Redo <i class="fa fa-mail-forward fa-lg"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="editor" class="editor-data-preview"></div> <!-- editor container -->
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<!-- container of data table -->
+	</div>
+
+	<div class="col-md-1">
+		<div ng-class="toggleClass" >
+			<button class="btn btn-default" type="button" aria-expanded="false" aria-controls="dataTable" ng-model="toggleData" ng-click="updateToggleData()">
+  				<i ng-class="toggleIcon"></i>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="row vis-area" ng-controller="plotZoomCtrl" ng-hide="toggleData">
 	<div class="col-md-3 plot-preview-thumb"> <!-- left column: plot previews list -->
 		<div class="panel panel-primary">
 			<div class="panel-heading text-center"><strong>{{panelHeadingStr}}</strong></div>
@@ -16,20 +84,19 @@
 				</div>
 		</div>
 	</div>
-	<div class="col-md-9"> <!-- right column: plot zoom and code -->
+	<div class="col-md-8"> <!-- right column: plot zoom and code -->
 		<div class="row">
 			<div class="col-md-12"> <!-- title of chart -->
 				<h4 class="text-center">CURRENT CHART: {{currentPlot}}</h4>
 			</div>
 		</div>
-
-		<!-- CHART WIDGET -->
-		<div id="plotWidget" title="{{currentPlot}} CONTROLS"> <!-- this is the widget used to interact with charts -->
-  			<p>TEMP WIDGET</p>
-		</div>
-		<!-- /CHART WIDGET -->
-
 		<div class="row"> <!-- here goes the chart -->
+			
+			<!-- CHART WIDGET -->
+			<div class="widget" id="plotWidget" title="Histogram chart controller"> <!-- this is the widget used to interact with charts -->
+			</div>
+			<!-- /CHART WIDGET -->
+
 			<div class="col-md-12" id="chart">
 			</div>
 		</div>
@@ -50,80 +117,7 @@
 	</div>
 </div>
 
-<div class="bottom row">
-	<div class="col-md-11">
-		<div class="row" ng-hide="toggleData">
-			<div class="col-md-12">
-				<div class="btn-group btn-group-justified" data-toggle="buttons">
-					<label class="btn btn-primary header-mimic" ng-repeat="(key, value) in firstRow" ng-click="updateChecked(key)">
-						<input type="checkbox" autocomplete="off" value="{{key}}"><strong class="text-uppercase">{{key}}</strong>
-					</label>
-				</div>
-			</div>
-		</div>
 
-		<!-- container of data table -->
-		<div class="collapse" id="dataTable">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="btn-group" role="group" aria-label="...">
-						<!--<button type="button" class="btn btn-default" id="saveTable">Apply Changes <i class="fa fa-check fa-lg" ></i></button>-->
-						<button type="button" class="btn btn-default" id="tableRenderer" ng-hide="tableRendered" ng-click="tableRendered = !tableRendered">
-							Adjust table <i class="fa fa-expand fa-lg" ></i>
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="row" id="dataTableRow">
-				<div class="col-md-12">
-					<div class="custom-table" id="data-preview-container"></div> <!-- hansontable container-->
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="btn-group" role="group" aria-label="...">
-  						<button type="button" class="btn btn-default" id="runTable">Run code <i class="fa fa-terminal fa-lg" ></i></button>
-  						<button type="button" class="btn btn-default" id="editUndo">Undo <i class="fa fa-undo fa-lg" ></i></button>
-  						<button type="button" class="btn btn-default" id="editRedo">Redo <i class="fa fa-mail-forward fa-lg" ></i></button>
-					</div>	
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-10">
-					<div id="editor" class="editor-data-preview"></div> <!-- editor container -->
-				</div>
-				<div class="col-md-2">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="input-group input-group">
-								<span class="input-group-addon" id="sizing-addon1">Stored in:</span>
-								<input type="text" class="form-control" value="{{dataVar}}" aria-describedby="sizing-addon1" id="dataVarInput">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="input-group input-group">
-								<span class="input-group-addon" id="sizing-addon1">Separator</span>
-								<input type="text" id="separator-param" class="form-control" placeholder="" aria-describedby="sizing-addon1" value=",">
-							</div>
-						</div>
-					</div>
-				</div>				
-			</div>
-		</div>
-		<!-- container of data table -->
-	</div>
-
-	<div class="col-md-1">
-		<div ng-class="toggleClass" >
-			<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#dataTable" aria-expanded="false" aria-controls="dataTable	"
-			ng-model="toggleData" ng-click="updateToggleData()">
-  				<i ng-class="toggleIcon"></i>
-			</button>
-		</div>
-	</div>
-</div>
 
 <div class="popover"> <!-- this is used when user clicks on code tokens-->
 </div>

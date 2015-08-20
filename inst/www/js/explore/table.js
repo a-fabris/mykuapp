@@ -1,6 +1,6 @@
 /* Handsontable setup */
 var container = document.getElementById('data-preview-container');
-var isChecked = true; //used to select header
+var isChecked = false; //used to select header
 
 /* Handsontable renderers */
 function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
@@ -37,6 +37,9 @@ function highlightBordersRenderer(instance, td, row, col, prop, value, cellPrope
 
 
 var hot = new Handsontable(container, {
+  colHeaders: function(col){
+    return "V" + col;
+  },
   rowHeaders: function(row){
   	var txt;
   	if (row === 0) {
@@ -146,14 +149,6 @@ Handsontable.Dom.addEvent(container, 'mouseup', function (event) {
    }
 });
 
-/* header event listener */
-
-//TODO:  change mousemove to sth else, after load perhaps
-Handsontable.Dom.addEvent(tableRenderer, 'click', function (event) {
-  console.log("rendered");
-  hot.render();
-  event.stopPropagation();
- });
 
 Handsontable.Dom.addEvent(editor, 'click', function (event) {
   
@@ -195,42 +190,4 @@ Handsontable.Dom.addEvent(editor, 'click', function (event) {
   hot.render();
 
 });
-
-//Update global data after table is editetd
-/*
-Handsontable.Dom.addEvent(saveTable, 'click', function() {
-
-  var data = hot.getData();
-  var jsonText = "";
-
-  jsonText += "[";
-
-  for(var i = 1; i < data.length ; i++){
-   //for(var i = 1; i < 6 ; i++){ 
-    jsonText += "{";
-    for(var j = 0 ; j < data[0].length ; j++){
-
-      var key = data[0][j];
-      var value = data[i][j];
-      //console.log("key: " + key + " value: " + value);
-
-      jsonText += "\"" + key + "\":\"" +value+ "\"";
-
-      if (j+1 == data[0].length){
-      } else {
-        jsonText += ","
-      }
-    } // inner loop
-    jsonText += "},"
-  }
-
-  jsonText += "]";
-
-  jsonText = jsonText.replace( ",]"   , "]");
-  jsonText = jsonText.replace( ",}"  , "}");
-
-  JSON_DATA_GLOBAL = jsonText;
-
-});
-*/
 

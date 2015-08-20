@@ -12,13 +12,6 @@
   shape-rendering: crispEdges;
 }
 
-#editor-plot{
-	height: 150px;
-	width: 100%;
-	margin-bottom: 10px;
-	/*overflow: hidden;*/
-}
-
 #chart{
 	height: 380px;
 	width: 100%;
