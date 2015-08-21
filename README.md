@@ -27,11 +27,11 @@ Features:
 Dependencies (tested):
 
 * R 3.2.1
-... opencpu 1.4.6
-... MASS 7.3-41
-... ggplot2 1.0.1
-... jsonlite 0.9.16
-... dplyr 0.4.2
+...opencpu 1.4.6
+...MASS 7.3-41
+...ggplot2 1.0.1
+...jsonlite 0.9.16
+...dplyr 0.4.2
 
 This software is a R package that runs in the browser on top of OpenCPU. Installation:
 
