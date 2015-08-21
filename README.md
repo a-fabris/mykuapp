@@ -26,7 +26,7 @@ Features:
 #Installation
 Dependencies (tested):
 
-- R 3.2.1
+* R 3.2.1
 ..* opencpu 1.4.6
 ..* MASS 7.3-41
 ..* ggplot2 1.0.1
