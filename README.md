@@ -24,7 +24,7 @@ Features:
 * Edit, expand and run the native R code
 
 #Live Demo
-(https://public.opencpu.org/ocpu/github/afabris86/mykuapp/www)
+https://public.opencpu.org/ocpu/github/afabris86/mykuapp/www
 
 #Installation
 Dependencies (tested):
