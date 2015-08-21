@@ -12,20 +12,38 @@ interactions into native R commands. The user can affect the results either by d
 
 Goals:
 
-- Learning by example
-- Familiarizing with R constructs
-- Foster the interplay between visual results and textual commands.
+* Learning by example
+* Familiarizing with R constructs
+* Foster the interplay between visual results and textual commands.
 
 Features:
 
-- Select a default dataset 
-- Profile the data
-- Explore distributions and correlations
-- Edit, expand and run the native R code
+* Select a default dataset 
+* Profile the data
+* Explore distributions and correlations
+* Edit, expand and run the native R code
 
 #Installation
-Tested configuration:
+Dependencies (tested):
 
--R 3.2.1
+- R 3.2.1
+..* opencpu 1.4.6
+..* MASS 7.3-41
+..* ggplot2 1.0.1
+..* jsonlite 0.9.16
+..* dplyr 0.4.2
+
+This software is a R package that runs in the browser on top of OpenCPU. Installation:
+
+Open a terminal and type:
+
+`R`
+`install_github("afabris86/thesis-prototype")`
+`library(opencpu)`
+`opencpu$browse("library/mykuapp/www")`
+
+
+
+
 
 
