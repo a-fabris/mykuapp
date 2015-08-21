@@ -40,10 +40,10 @@ This software is a R package that runs in the browser on top of OpenCPU. Install
 Open a terminal and type:
 
 ```
-	R
-	install_github("afabris86/thesis-prototype")
-	library(opencpu)
-	opencpu$browse("library/mykuapp/www")
+R
+install_github("afabris86/thesis-prototype")
+library(opencpu)
+opencpu$browse("library/mykuapp/www")
 ```
 
 
