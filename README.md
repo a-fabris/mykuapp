@@ -35,7 +35,7 @@ ggplot2 1.0.1
 jsonlite 0.9.16
 dplyr 0.4.2
 ```
-This software is a R package that runs in the browser on top of OpenCPU. Installation:
+This software is an OpenCPU web app on top of an R server. Installation:
 
 Open a terminal and type:
 
