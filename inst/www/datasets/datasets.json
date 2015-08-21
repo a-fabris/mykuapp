@@ -11,6 +11,6 @@
 		"id" : "Iris",
 		"snippet" : "The data set consists of 50 samples from each of three species of Iris (Iris setosa, Iris virginica and Iris versicolor).",
 		"dataUrl" : "datasets/iris.csv",
-		"liClass" : ""
+		"liClass" : "disabled"
 	}
 ]
