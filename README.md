@@ -41,7 +41,7 @@ Open a terminal and type:
 
 ```
 R
-install_github("afabris86/thesis-prototype")
+install_github("afabris86/mykuapp")
 library(opencpu)
 opencpu$browse("library/mykuapp/www")
 ```
