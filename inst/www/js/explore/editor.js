@@ -14,7 +14,7 @@ popoverText = "";
 var popTimeout;
 
 $("#editor").mousemove(function(e){
-    console.log("X: " + e.pageX + " Y: " + e.pageY );
+    //console.log("X: " + e.pageX + " Y: " + e.pageY );
     POS_X = e.pageX;
     POS_Y = e.pageY;    
 });

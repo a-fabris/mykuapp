@@ -38,12 +38,16 @@ $( "#dataVarInput" ).keyup(function() {
 });
 
 
-$("#separator-param").keyup(function(){
-	var newSeparator = $("#separator-param").val();
-	if(newSeparator != ""){
-		loadTable(newSeparator);
-	} else {
-		hot.updateSettings({data : [[]] } );
+$("#separator-param").keyup(function(e){
+	
+	//console.log("keyup: " + e.which);
+	if(e.which != 16){ //if not shift key
+		var newSeparator = $("#separator-param").val();
+		if(newSeparator != ""){
+			loadTable(newSeparator);
+		} else {
+			hot.updateSettings({data : [[]] } );
+		}
 	}
 
 });
